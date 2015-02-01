@@ -1,0 +1,37 @@
+<%= form_for @currency do |f|%>
+
+<% if @currency.errors.any?%>
+     <h4> Below error prohibited the currency to save </h4>
+    <ul>
+        <% @currency.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label> Currency Title:</label><br />
+<%= f.text_field :title%><br />
+
+<label> Code:</label><br />
+<%= f.text_field :code%><br />
+
+<label> Symbol Left:</label><br />
+<%= f.text_field :symbol_left%><br />
+
+<label> Symbol Right:</label><br />
+<%= f.text_field :symbol_right%><br />
+
+<label> Decimal Places:</label><br />
+<%= f.text_field :decimal_place%><br />
+
+<label>Value:</label><br />
+<%= f.text_field :value%><br />
+
+<label> Is Default?:<lable><br />
+<%= f.check_box :is_default %><br />
+
+<label>Status: </label>
+<%=f.select :status, options_for_select([["Enable", "Enable"], ["Disable", "Disable"]])%>
+<br />
+
+    <%= f.submit%>
+<% end %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  property_id: 1
+  payment_date: 2014-09-24
+  payment_type: MyString
+  payment_amount: 9.99
+  payment_mode: MyString
+  payment_details: MyText
+
+two:
+  property_id: 1
+  payment_date: 2014-09-24
+  payment_type: MyString
+  payment_amount: 9.99
+  payment_mode: MyString
+  payment_details: MyText

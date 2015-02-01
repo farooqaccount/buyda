@@ -1,0 +1,12 @@
+<h3><%= @country.name %></h3><br />
+
+<p> <strong>Country Name:</strong> <%=@country.name%></p>
+<p> <strong>ISO Code (2)</strong> <%= @country.iso_code_2%></p>
+<p> <strong>ISO Code (3)</strong> <%= @country.iso_code_3%></p>
+<p> <strong>Address Format:</strong> <%= @country.address_format%></p>
+<p> <strong>Postcode Required:</strong> <%= @country.postcode_required ? "Yes" : "No"%></p>
+<p> <strong>Status:</strong> <%= @country.status%></p>
+
+    
+<p><%= link_to "All Countries", countries_path%> | <%= link_to "Edit country", edit_country_path(@country.id)%>
+    | <%= link_to "Delete country", country_path(@country.id), method: :delete, data: {confirm: "Are you sure?"} %></p>

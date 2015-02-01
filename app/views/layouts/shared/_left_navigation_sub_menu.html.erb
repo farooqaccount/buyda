@@ -1,0 +1,18 @@
+<ul>
+    <% sub_categories.each do |sub|
+    is_active = ""
+    if @category.present?
+        @category.children.each do |cat|
+            if cat == sub
+                is_active = "active"
+            else
+                is_active = "collapsed"
+            end
+        end
+    end
+    %>
+    <li class="list-group-item dropdown clearfix <%=is_active%>"><i class="fa fa-angle-right"></i><%=link_to sub.name,class: (@sub_category == sub ? "active" : "collapsed")%></li>
+    <%= render 'layouts/shared/left_navigation_sub_menu', sub_categories: sub.children if sub.children.present? %>
+<% end %>
+</ul>
+  

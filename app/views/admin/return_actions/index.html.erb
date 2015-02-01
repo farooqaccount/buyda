@@ -1,0 +1,17 @@
+<h1> List of Return Actions </h1>
+
+<table border="1">
+    <tr>
+        <th>Return Action Name</th>
+        <th> Action </th>
+        
+    </tr>
+    <%@return_actions.each do |return_action|%>
+        <tr>
+            <td><%= return_action.name %></td>
+            <td><%= link_to "Show", return_action_path(return_action.id)%> | <%= link_to "Edit", edit_return_action_path(return_action.id)%> | <%= link_to "Delete", return_action_path(return_action.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+            
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add Return Action", new_return_action_path %>

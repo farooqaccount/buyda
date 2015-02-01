@@ -1,0 +1,35 @@
+<li>
+    <div class="header-navigation-content">
+        <div class="row">
+            <% if sub_categories.present? && sub_categories.count > 0 %>
+                <% sub_categories.each do |sub_category| %>
+                    <div class="col-md-4 header-navigation-col">
+                        <h4><%=sub_category.name%></h4>
+                        <ul>
+                            <%if sub_category.children.present?
+                                sub_category.children.each do |sub| %>
+                            <li><%=link_to sub.name, pages_category_products_path(:category_id => sub.id)%></li>
+                                <% end %>
+                            <% end %>
+                        </ul>
+                    </div>
+                <% end %>
+            <% else %>
+                <div class="col-md-12 header-navigation-col">
+                    <h3>There are no products under this category</h3>
+                </div>
+            <% end %>
+            <% if sub_categories.present? && sub_categories.count >0 %>
+            <div class="col-md-12 nav-brands">
+                <ul>
+                    <li><a href="shop-product-list.html"><img title="esprit" alt="esprit" src="/frontend/pages/img/brands/esprit.jpg"></a></li>
+                    <li><a href="shop-product-list.html"><img title="gap" alt="gap" src="/frontend/pages/img/brands/gap.jpg"></a></li>
+                    <li><a href="shop-product-list.html"><img title="next" alt="next" src="/frontend/pages/img/brands/next.jpg"></a></li>
+                    <li><a href="shop-product-list.html"><img title="puma" alt="puma" src="/frontend/pages/img/brands/puma.jpg"></a></li>
+                    <li><a href="shop-product-list.html"><img title="zara" alt="zara" src="/frontend/pages/img/brands/zara.jpg"></a></li>
+                </ul>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</li>

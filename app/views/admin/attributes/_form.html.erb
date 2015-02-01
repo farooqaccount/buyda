@@ -1,0 +1,24 @@
+<%= form_for @attribute do |f|%>
+
+
+<% if @attribute.errors.any? %>
+        <h4> Below error prohibited the attribute to save </h4>
+<ul>
+<% @attribute.errors.full_messages.each do |msg|%>
+    <li><%= msg%></li>
+ <% end %>
+</ul>
+<% end %>
+<label>Attribute Group:</label><br />
+<%= f.collection_select :attribute_group_id,AttributeGroup.all,:id,:name,:prompt => "Select Attribute Group"%><br />
+
+<%# collection_select is a helper method used when we have a foreign key association %>
+       
+<label> Name: </label><br />
+<%=f.text_field :name%><br />
+
+<label>Sort Order:</label><br />
+<%=f.text_field :sort_order%><br />
+
+<%= f.submit%>
+<% end %>

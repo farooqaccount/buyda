@@ -1,0 +1,20 @@
+<%= form_for @stock_status do |f|%>
+
+<% if @stock_status.errors.any?%>
+     <h4> Below error prohibited the stock status to save </h4>
+    <ul>
+        <% @stock_status.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label> Stock Status:</label><br />
+<%= f.text_field :name%><br />
+
+<label> Is Default?:<lable><br />
+<%= f.check_box :is_default %><br />
+
+
+
+    <%= f.submit%>
+<% end %>

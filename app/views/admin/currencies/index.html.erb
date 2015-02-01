@@ -1,0 +1,23 @@
+<h1> List of Currencies </h1>
+
+<table border="1">
+    <tr>
+        <th>Currency Title</th>
+        <th>Currency Code</th>
+        <th>Currency Value</th>
+        <th>Last Updated</th>
+        <th> Action </th>
+        
+    </tr>
+    <%@currencies.each do |currency|%>
+        <tr>
+            <td><%= currency.title %></td>
+            <td><%= currency.code %></td>
+            <td><%= currency.value %></td>
+            <td><%= currency.updated_at.strftime("%d %b %Y") %></td>
+            <td><%= link_to "Show", currency_path(currency.id)%> | <%= link_to "Edit", edit_currency_path(currency.id)%> | <%= link_to "Delete", currency_path(currency.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+            
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add Currency", new_currency_path %>

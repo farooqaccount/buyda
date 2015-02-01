@@ -1,0 +1,31 @@
+<%= form_for @payment_detail do |f|%>
+
+<% if @payment_detail.errors.any?%>
+     <h4> Below error prohibited the payment detail to save </h4>
+    <ul>
+        <% @payment_detail.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label> Property:</label><br />
+<%= f.collection_select :property_id, Property.order(:property_code), :id, :property_code, {:include_blank => "Please select the Property"} %><br />
+
+<label> Payment Date:</label><br />
+<%= f.date_select :payment_date%><br />
+
+<label> Payment Type:</label><br />
+<%= f.select :payment_type, %w{CreditCard DebitCard ECS Cash}, :class => "form-control"%><br />
+
+<label> Payment Amount:</label><br />
+<%= f.text_field :payment_amount%><br />
+
+<label> Payment Mode:</label><br />
+<%= f.select :payment_mode, %w{Monthly Quaterly HalfYearly Yearly}, :class => "form-control"%><br />
+
+<label> Payment Details:</label><br />
+<%= f.text_area :payment_details%><br />
+
+
+<%= f.submit%>
+<% end %>

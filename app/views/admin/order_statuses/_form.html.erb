@@ -1,0 +1,21 @@
+<%= form_for @order_status do |f|%>
+
+<% if @order_status.errors.any?%>
+     <h4> Below error prohibited the order status to save </h4>
+    <ul>
+        <% @order_status.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label> Order Status:</label><br />
+<%= f.text_field :name%><br />
+
+<label> Is Default?:<lable><br />
+<%= f.check_box :is_default %><br />
+
+<label> Send Email? <lable><br />
+<%= f.check_box :send_email %><br />
+
+<%= f.submit%>
+<% end %>

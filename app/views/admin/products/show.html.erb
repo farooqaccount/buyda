@@ -1,0 +1,312 @@
+<% content_for :title, @product.name %> 
+<div class="col-md-9 col-sm-7">
+            <div class="product-page">
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+                  <div class="product-main-image">
+                    <img src="/frontend/pages/img/products/model7.jpg" alt="Cool green dress with red bell" class="img-responsive" data-BigImgsrc="/frontend/pages/img/products/model7.jpg">
+                  </div>
+                  <div class="product-other-images">
+                    <a href="/frontend/pages/img/products/model3.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="/frontend/pages/img/products/model3.jpg"></a>
+                    <a href="/frontend/pages/img/products/model4.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="/frontend/pages/img/products/model4.jpg"></a>
+                    <a href="/frontend/pages/img/products/model5.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="/frontend/pages/img/products/model5.jpg"></a>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <h1><%=@product.name%></h1>
+                  <div class="price-availability-block clearfix">
+                    <div class="price">
+                        <strong><span>$</span><%=@product.price%></strong>
+                      <em>$<span>62.00</span></em>
+                    </div>
+                    <div class="availability">
+                        Availability: <strong><%= @product.in_stock == "Yes" ? "In Stock" : "Out Of Stock"%></strong>
+                    </div>
+                  </div>
+                  <div class="description">
+                      <p><%=@product.description%></p>
+                  </div>
+                    <div class="product-page-options">
+                    <div class="pull-left">
+                        <label class="control-label">Select:</label>
+                      <select class="form-control input-sm">
+                        <option>L</option>
+                        <option>M</option>
+                        <option>XL</option>
+                      </select>
+                        
+                    </div>
+                    
+                  </div>
+                    
+                  <div class="product-page-cart">
+                    <div class="product-quantity" id="product-quantity">
+                        <label class="control-label">Quantity:</label><%=@product.quantity %>
+                        
+                    </div>
+                      <div class="clearfix"></div>
+                      
+                     <div class="row"> 
+                         <% if @product.in_stock == "Yes"%>
+                         <div class="col-md-4 col-sm-4">
+                    <%= button_to "Add to cart", cart_products_path(product_id: @product.id,price: @product.price), :name => "AddToCart", class: "btn btn-primary" %>
+                         </div>
+                         <% end %>
+                         <div class="col-md-4 col-sm-4">
+                              <%= button_to "Add to wishlist", wishlists_path(product_id: @product.id), :name => "AddToWishlist", class: "btn btn-primary" %>
+                         </div>
+                      </div>
+                  </div>
+                    <% if @product.reviews.present?%>
+                  <div class="review">
+<!--                     <input type="range" value="4" step="0.25" id="backing4"> -->
+                    <div class="rateit" data-rateit-backingfld="#backing4" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
+                    </div>
+                    <a href="#Reviews"><%=@product.reviews.count%> reviews</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#write-review">Write a review</a>
+                  </div>
+                    <div class="social-icons">
+                            <p>Like the product, share it! <%= social_share_button_tag("My Site") %></p>
+                        </div>
+                    <%end%>
+                  
+                </div>
+
+                <div class="product-page-content">
+                  <ul id="myTab" class="nav nav-tabs">
+                    <li><a href="#Description" data-toggle="tab">Description</a></li>
+                    <li><a href="#Information" data-toggle="tab">Information</a></li>
+                      <li class="active"><a href="#Reviews" data-toggle="tab">Reviews <%= @product.reviews.present? ? "(#{@product.reviews.count})" : ""%></a></li>
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade" id="Description">
+                        <p><%=@product.description%> </p>
+                    </div>
+                    <div class="tab-pane fade" id="Information">
+                      <table class="datasheet">
+                        <tr>
+                          <th colspan="2">Additional features</th>
+                        </tr>
+                        <tr>
+                          <td class="datasheet-features-type">Value 1</td>
+                          <td>21 cm</td>
+                        </tr>
+                        <tr>
+                          <td class="datasheet-features-type">Value 2</td>
+                          <td>700 gr.</td>
+                        </tr>
+                        <tr>
+                          <td class="datasheet-features-type">Value 3</td>
+                          <td>10 person</td>
+                        </tr>
+                        <tr>
+                          <td class="datasheet-features-type">Value 4</td>
+                          <td>14 cm</td>
+                        </tr>
+                        <tr>
+                          <td class="datasheet-features-type">Value 5</td>
+                          <td>plastic</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="tab-pane fade in active" id="Reviews">
+                        <%if !@product.reviews.present?%>
+                      <p>There are no reviews for this product.</p>
+                        <%else%>
+                        <% @product.reviews.each do |review|%>
+                        <div class="review-item clearfix">
+                        <div class="review-item-submitted">
+                          <strong><%=review.author%></strong>
+                            <em><%=review.created_at.strftime("%B %d %Y %H:%M:%S")%></em>
+                          <div class="rateit" data-rateit-value="5" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                        </div>                                              
+                        <div class="review-item-content">
+                            <p><%=review.description%></p>
+                        </div>
+                        <div class="review-item-content">
+                            <p>Rating <%=review.rating%></p>
+                        </div>
+                        
+                      </div>
+                        <% end %>
+                        <% end %>
+                      
+                      
+
+                      <!-- BEGIN FORM-->
+                        <%= form_for [@product,@review], :html => {:class => 'reviews-form', :id => 'write-review' } do |f|%>
+                      
+                        <h2>Write a review</h2>
+                        <div class="form-group">
+                          <label for="name">Name <span class="require">*</span></label>
+                            <%= f.text_field :author, class: "form-control", id: "name" %>
+                        </div>
+                       
+                        <div class="form-group">
+                          <label for="review">Review <span class="require">*</span></label>
+                            <%=f.text_area :description,:row => 8, :col => 4, class: "form-control", id: "review"%>
+                          
+                        </div>
+                        <div class="form-group">
+                          <label for="email">Rating</label>
+<!--                           <input type="range" value="4" step="0.25" id="backing5"> -->
+                            <%= f.collection_radio_buttons :rating, (1..5).map{|n| [n, n]}, :first, :last, :class => "form-control", :id => "backing5" %>
+                          <div class="rateit" data-rateit-backingfld="#backing5" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
+                          </div>
+                        </div>
+                        <div class="padding-top-20">
+                            <%= f.submit "Send", :class => "btn btn-primary"%>
+                            
+                            <%= link_to "Cancel",pages_home_path, :class => "btn btn-default btn-label-left"%>
+                          
+                        </div>
+                      
+                        <% end%>
+                      <!-- END FORM--> 
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sticker sticker-sale"></div>
+              </div>
+            </div>
+          </div>
+<div class="row margin-bottom-40">
+          <div class="col-md-12 col-sm-12">
+            <h2>Most popular products</h2>
+            <div class="owl-carousel owl-carousel4">
+              <div>
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/k1.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/k1.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
+                  <div class="pi-price">$29.00</div>
+                  <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                  <div class="sticker sticker-new"></div>
+                </div>
+              </div>
+              <div>
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/k2.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/k2.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><a href="shop-item.html">Berry Lace Dress2</a></h3>
+                  <div class="pi-price">$29.00</div>
+                  <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                </div>
+              </div>
+              <div>
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/k3.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/k3.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><a href="shop-item.html">Berry Lace Dress3</a></h3>
+                  <div class="pi-price">$29.00</div>
+                  <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                </div>
+              </div>
+              <div>
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/k4.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/k4.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><a href="shop-item.html">Berry Lace Dress4</a></h3>
+                  <div class="pi-price">$29.00</div>
+                  <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                  <div class="sticker sticker-sale"></div>
+                </div>
+              </div>
+              <div>
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/k1.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/k1.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><a href="shop-item.html">Berry Lace Dress5</a></h3>
+                  <div class="pi-price">$29.00</div>
+                  <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                </div>
+              </div>
+              <div>
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/k2.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/k2.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><a href="shop-item.html">Berry Lace Dress6</a></h3>
+                  <div class="pi-price">$29.00</div>
+                  <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END SIMILAR PRODUCTS -->
+     
+
+<!-- <%- model_class = Product -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @product.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dd><%= @product.description %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
+  <dd><%= @product.price %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dd><%= @product.title %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:manufacturer_id) %>:</strong></dt>
+    <dd><%= @product.manufacturer.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:category_id) %>:</strong></dt>
+    <dd><%= !@product.category.nil? ? @product.category.name : "-" %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:in_stock) %>:</strong></dt>
+  <dd><%= @product.in_stock %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:reduce_stock) %>:</strong></dt>
+    <dd><%= @product.reduce_stock? ? "Yes" : "No" %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:quantity) %>:</strong></dt>
+  <dd><%= @product.quantity %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:require_shipping) %>:</strong></dt>
+  <dd><%= @product.require_shipping %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:manufactuering_date) %>:</strong></dt>
+    <dd><%= !@product.manufactuering_date.nil? ? @product.manufactuering_date.strftime("%B %d %Y"): "" %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:active_from) %>:</strong></dt>
+  <dd><%= !@product.active_from.nil? ? @product.active_from.strftime("%B %d %Y %H:%M:%S %Z") : "" %></dd>
+ 
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              products_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_product_path(@product), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              product_path(@product),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+<%= link_to t('.add_review', :default => t("helpers.links.add_review")),
+    new_product_review_path(@product.id), :class => 'btn btn-default' %> -->

@@ -1,0 +1,144 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+        <%= link_to 'Buyda', root_path, class: 'navbar-brand' %>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Dashboard</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catalog <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li> <%= link_to "Manufacturers", manufacturers_path%></li>
+            <li><%= link_to "Categories", categories_path%></li>
+              <li><%= link_to "Products", admin_products_path%></li>
+              <li><%= link_to "Options", product_options_path%></li>
+            <li><a href="#">Downloads</a></li>
+              <li><%= link_to "Reviews", reviews_path%></li>
+            <li><a href="#">Information</a></li>
+            <li class="dropdown">
+          <a href="#" data-toggle="dropdown" class="dropdown-toggle">Attributes </a>
+                <ul class="dropdown-menu">
+                    <li><%= link_to "Attribute", attributes_path%></li>
+                    <li><%= link_to "Attribute Groups", attribute_groups_path%></li>
+
+                </ul>
+             </li>
+          </ul>
+        </li>
+          
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extensions <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Modules</a></li>
+            <li><a href="#">Shippings</a></li>
+              <li><a href="#">Payments</a></li>
+            <li><a href="#">Order Totals</a></li>
+            <li><a href="#">Product Feeds</a></li>
+            
+          </ul>
+        </li>
+          
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sales <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+              <li><%= link_to "Orders", orders_path%></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Customers</a></li>
+              <li><a href="#">Affiliates</a></li>
+            <li><%= link_to "Coupons", coupons_path%></li>
+            <li><a href="#">Gift Vouchers</a></li>
+            <li><a href="#">Mails</a></li>
+          </ul>
+        </li>
+          
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">System <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Setting</a></li>
+            <li><a href="#">Design</a></li>
+            <li><a href="#">Users</a></li>
+             <li class="dropdown">
+          <a href="#" data-toggle="dropdown" class="dropdown-toggle">Localisation </a>
+                <ul class="dropdown-menu">
+                    <li><%= link_to "Languages", languages_path%></li>
+                    <li><%= link_to "Currencies", currencies_path%></li>
+                    <li><%= link_to "Stock Statuses", stock_statuses_path%></li>
+                    <li><%= link_to "Order Statuses", order_statuses_path%></li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Returns </a>
+                <ul class="dropdown-menu">
+                    <li><%= link_to "Return Statuses", return_statuses_path%></li>
+                    <li><%= link_to "Return Actions", return_actions_path%></li>
+                    <li><%= link_to "Return Reasons", return_reasons_path%></li>
+                        </ul>
+                    </li>
+                    <li><%= link_to "Countries", countries_path%></li>
+                    <li><%= link_to "Zones", zones_path%></li>
+                    <li><%= link_to "Length Classes", length_classes_path%></li>
+                    <li><%= link_to "Weight Classes", weight_classes_path%></li>
+                </ul>
+             </li>
+            <li><a href="#">Error Logs</a></li>
+            <li><a href="#">Backup / Restore</a></li>
+            
+          </ul>
+        </li>
+          
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Sales</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Customers</a></li>
+              <li><a href="#">Affiliates</a></li>
+                     
+          </ul>
+        </li>
+          
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Homepage</a></li>
+            <li><a href="#">Support</a></li>
+                                  
+          </ul>
+        </li>
+          
+          
+      </ul>
+      
+        
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+          <li id="fat-menu" class="dropdown bold">
+            <a href="#fat-menu" class="dropdown-toggle" data-toggle="dropdown">
+                <%= current_user.first_name %><b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Settings", edit_user_registration_path %></li>
+              <li class="divider"></li>
+              <li>
+                  <%= link_to "Logout", destroy_user_session_path,:method => :delete %>
+              </li>
+            </ul>
+          </li>
+                 
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+    <div class="clearfix"></div>
+</nav>

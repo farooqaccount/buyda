@@ -1,0 +1,22 @@
+<h1> List of Length Classes </h1>
+
+<table border="1">
+    <tr>
+        <th>Length Title</th>
+        <th>Length Unit</th>
+        <th>Value</th>
+        <th>Action</th>
+        
+    </tr>
+    <%@length_classes.each do |length_class|%>
+        <tr>
+            <td><%= length_class.title %></td>
+            <td><%= length_class.unit %></td>
+            <td><%= length_class.value %></td>
+            <td><%= link_to "Show", length_class_path(length_class.id)%> |
+            <%= link_to "Edit", edit_length_class_path(length_class.id)%> |
+            <%= link_to "Delete", length_class_path(length_class.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add length class", new_length_class_path %>

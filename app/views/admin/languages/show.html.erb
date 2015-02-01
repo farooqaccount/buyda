@@ -1,0 +1,12 @@
+<h3><%= @language.name %></h3><br />
+
+<p> <strong>Code:</strong> <%=@language.code%></p>
+<p> <strong>Locale:</strong> <%= @language.locale%></p>
+<p> <strong>Directory:</strong> <%= @language.directory%></p>
+<p> <strong>Fielname:</strong> <%= @language.filename%></p>
+<p> <strong>Is Default?:</strong> <%= @language.is_default ? "Yes" : "No"%></p>
+<p> <strong>Status:</strong> <%= @language.status%></p>
+
+    
+<p><%= link_to "All Languages", languages_path%> | <%= link_to "Edit Language", edit_language_path(@language.id)%>
+    | <%= link_to "Delete Language", language_path(@language.id), method: :delete, data: {confirm: "Are you sure?"} %></p>

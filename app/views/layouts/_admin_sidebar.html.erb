@@ -1,0 +1,369 @@
+<div class="page-sidebar navbar-collapse collapse">
+			<!-- BEGIN SIDEBAR MENU -->
+			<ul class="page-sidebar-menu" data-auto-scroll="false" data-auto-speed="200">
+				<!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+				<li class="sidebar-toggler-wrapper">
+					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+					<div class="sidebar-toggler">
+					</div>
+					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+				</li>
+				<!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+				<li class="sidebar-search-wrapper hidden-xs">
+					<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+					<!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
+					<!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
+					<form class="sidebar-search" action="extra_search.html" method="POST">
+						<a href="javascript:;" class="remove">
+						</a>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search...">
+							<span class="input-group-btn">
+							<!-- DOC: value=" ", that is, value with space must be passed to the submit button -->
+							<input class="btn submit" type="button" type="button" value=" "/>
+							</span>
+						</div>
+					</form>
+					<!-- END RESPONSIVE QUICK SEARCH FORM -->
+				</li>
+				<li class="start active ">
+                    <%= link_to admin_root_path do%>
+                        <i class="fa fa-home"></i> &nbsp; Dashboard
+                    <%end%>
+					
+				</li>
+				<li>
+					<a href="javascript:;">
+					<i class="fa fa-shopping-cart"></i>
+					<span class="title">Catelog</span>
+					<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+                            <%= link_to admin_manufacturers_path do%>
+                                <i class="fa fa-bullhorn"></i> &nbsp; Manufacturers
+                            <%end%>
+							
+						</li>
+						<li>
+                            <%= link_to admin_categories_path do%>
+                                 <i class="fa fa-bullhorn"></i> &nbsp; Categories 
+                            <%end%>
+												
+						</li>
+						<li>
+                            <%= link_to admin_products_path do%>
+                                 <i class="fa fa-bullhorn"></i> &nbsp; Products 
+                            <%end%>
+							
+						</li>
+						<li>
+                            <%= link_to admin_product_options_path do%>
+                                 <i class="fa fa-bullhorn"></i> &nbsp; Options
+                            <%end%>
+														
+						</li>
+						<li>
+							<a href="#">
+							<i class="fa fa-file-o"></i>
+							Downloads</a>
+						</li>
+                        <li>
+                            <%= link_to reviews_path do%>
+                                 <i class="fa fa-bullhorn"></i> &nbsp; Reviews
+                            <%end%>
+                          
+						</li>
+                        <li>
+							<a href="#">
+							<i class="fa fa-file-o"></i>
+							Information</a>
+						</li>
+                        <li>
+					<a href="javascript:;">
+					<i class="fa fa-folder-open"></i>
+					<span class="title">Attributes</span>
+					<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+                            <%= link_to admin_attributes_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Attribute <span class="arrow"></span>
+                            <%end%>
+														
+						</li>
+						<li>
+                            <%= link_to admin_attribute_groups_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Attribute Groups <span class="arrow"></span>
+                            <%end%>
+                            
+														
+						</li>
+						
+					</ul>
+				</li>
+					</ul>
+				</li>
+				<li>
+					<a href="javascript:;">
+					<i class="fa fa-cogs"></i>
+					<span class="title">Extensions</span>
+					<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="#">
+							Modules</a>
+						</li>
+						<li>
+							<a href="#">
+							Shippings</a>
+						</li>
+						<li>
+							<a href="#">
+							Payments</a>
+						</li>
+						<li>
+							<a href="#">
+							Order Totals</a>
+						</li>
+						<li>
+							<a href="#">
+							<span class="badge badge-roundless badge-danger">new</span>Product Feeds</a>
+						</li>
+						
+					</ul>
+				</li>
+				<!-- BEGIN FRONTEND THEME LINKS -->
+				<li>
+					<a href="javascript:;">
+					<i class="fa fa-gift"></i>
+					<span class="title">
+					Sales </span>
+					<span class="arrow">
+					</span>
+					</a>
+					<ul class="sub-menu">
+						<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="This will provide the details about the orders">
+                            <%= link_to orders_path do%>
+                                <span class="title"> Orders</span>
+                            <%end%>
+							
+						</li>
+						<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="Complete Returns History">
+							<a href="#" target="_blank">
+							<span class="title">
+							Returns </span>
+							</a>
+						</li>
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="Customer details">
+							<a href="#" target="_blank">
+							<span class="title">
+							Customers </span>
+							</a>
+						</li>
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="Affiliates working with your company">
+							<a href="#" target="_blank">
+							<span class="title">
+							Affiliates </span>
+							</a>
+						</li>
+                         <li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="Coupons">
+                              <%= link_to coupons_path do%>
+                                <span class="title"> Coupons</span>
+                            <%end%>
+							
+						</li>
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="Gift Vouchers">
+							<a href="#" target="_blank">
+							<span class="title">
+							Gift Vouchers </span>
+							</a>
+						</li>
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="Mails">
+							<a href="#" target="_blank">
+							<span class="title">
+							Mails </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<!-- END FRONTEND THEME LINKS -->
+				<li>
+					<a href="javascript:;">
+					<i class="fa fa-bookmark-o"></i>
+					<span class="title">System</span>
+					<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="#">
+							Settings</a>
+						</li>
+						<li>
+							<a href="#">
+							Design</a>
+						</li>
+						<li>
+							<a href="#">
+							<span class="badge badge-roundless badge-danger">new</span>Users</a>
+						</li>
+						 <li>
+					<a href="javascript:;">
+					<i class="fa fa-folder-open"></i>
+					<span class="title">Localization</span>
+					<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+                            <%= link_to admin_languages_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Languages <span class="arrow"></span>
+                            <%end%>
+														
+						</li>
+						<li>
+                            <%= link_to admin_currencies_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Currencies <span class="arrow"></span>
+                            <%end%>
+                            
+														
+						</li>
+                        <li>
+                            <%= link_to admin_stock_statuses_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Stock Statuses <span class="arrow"></span>
+                            <%end%>
+                            
+														
+						</li>
+                         <li>
+                             <%= link_to admin_order_statuses_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Order Statuses <span class="arrow"></span>
+                            <%end%>
+                            
+														
+						</li>
+                         <li>
+					<a href="javascript:;">
+					<i class="fa fa-folder-open"></i>
+					<span class="title">Returns</span>
+					<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+                            <%= link_to admin_return_statuses_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Return Statuses <span class="arrow"></span>
+                            <%end%>
+														
+						</li>
+						<li>
+                            <%= link_to admin_return_actions_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Return Actions <span class="arrow"></span>
+                            <%end%>
+                            
+														
+						</li>
+						<li>
+                            <%= link_to admin_return_reasons_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Return Reasons <span class="arrow"></span>
+                            <%end%>
+                            
+														
+						</li>
+                        <li>
+                            <%= link_to admin_countries_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Countries <span class="arrow"></span>
+                            <%end%>
+                            
+														
+						</li>
+                        <li>
+                            <%= link_to admin_zones_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Zones <span class="arrow"></span>
+                            <%end%>
+                            
+														
+						</li>
+                        <li>
+                            <%= link_to admin_length_classes_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Length Classes <span class="arrow"></span>
+                            <%end%>
+                            
+														
+						</li>
+                        <li>
+                            <%= link_to admin_weight_classes_path do%>
+                                <i class="fa fa-tags"></i> &nbsp; Weight Classes <span class="arrow"></span>
+                            <%end%>
+                            
+														
+						</li>
+					</ul>
+				</li>
+					</ul>
+				</li>
+						<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="Complete Returns History">
+							<a href="#" target="_blank">
+							<span class="title">
+							Error Logs </span>
+							</a>
+						</li>
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="Complete Returns History">
+							<a href="#" target="_blank">
+							<span class="title">
+							Backup / Restore </span>
+							</a>
+						</li>
+			</ul>
+				</li>
+				<li>
+					<a href="javascript:;">
+					<i class="fa fa-puzzle-piece"></i>
+					<span class="title">Reports</span>
+					<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="#">
+							Sales</a>
+						</li>
+						<li>
+							<a href="#">
+							Products</a>
+						</li>
+						<li>
+							<a href="#">
+							Customers</a>
+						</li>
+						<li>
+							<a href="#">
+							Affiliates</a>
+						</li>
+						
+					</ul>
+				</li>
+				<li class="last">
+					<a href="javascript:;">
+					<i class="fa fa-puzzle-piece"></i>
+					<span class="title">Help</span>
+					<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="#">
+							Documentation</a>
+						</li>
+						<li>
+							<a href="#">
+							Homepage</a>
+						</li>
+						<li>
+							<a href="#">
+							Support</a>
+						</li>
+												
+					</ul>
+				</li>
+			
+			</ul>
+			<!-- END SIDEBAR MENU -->
+		</div>

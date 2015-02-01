@@ -1,0 +1,35 @@
+<!-- This is for nested routes example-->
+<%= form_for [@product,@review], :html => {:class => 'form-horizontal'} do |f|%>
+<% if @review.errors.any?%>
+     <h4> Below error prohibited the review to save </h4>
+    <ul>
+        <% @review.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label>Author:</label><br />
+<%= f.text_field :author %><br />
+<!-- <%= f.label :product_token, "Product" %><br />
+<%= f.text_field :product_token, "data-pre" => @review.product.to_json %><br /> -->
+<label>Product:</label><br />
+<% if params[:product_id] %>
+<%= @product.name%>
+<% else%>
+<%= f.collection_select :product_id,Product.all,:id,:name,prompt: "Select Product" %>
+<% end %>
+<br />
+<label>Review:</label><br />
+<%=f.text_area :description,:row => 20, :col => 4%><br />
+<label>Rating:</label><br />
+<%= f.collection_radio_buttons :rating, (1..5).map{|n| [n, n]}, :first, :last, :class => "form-control" %><br />
+<label>Status: </label>
+<%=f.select :status, options_for_select([["Enable", "Enable"], ["Disable", "Disable"]])%>
+<br />
+<div class="form-control">
+  <%= f.submit nil, :class => "btn btn-primary"%>
+    <%= link_to "Cancel",reviews_path, :class => "btn btn-default btn-label-left"%>
+</div>
+
+
+<% end %>

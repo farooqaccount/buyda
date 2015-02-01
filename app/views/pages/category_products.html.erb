@@ -1,0 +1,249 @@
+<% category_title = @category.parent.parent.name.pluralize%>
+<% content_for :title, category_title %>
+<div class="title-wrapper">
+      <div class="container"><div class="container-inner">
+          <h1><span><%=category_title%></span> CATEGORY</h1>
+          <em> <%=@products.present? ? "Over #{@products.count} Items are available here" : "No items present in this category" %> </em>
+      </div></div>
+    </div>
+<div class="main">
+      <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <% @category.ancestors.each do |category| %>
+               <li> <%= category.name %></li>
+          <% end %>
+        </ul>
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+          <!-- BEGIN SIDEBAR -->
+            <div class="sidebar col-md-3 col-sm-5">
+                <%= render 'layouts/shared/left_navigation', categories: @categories.roots %>
+                <div class="sidebar-filter margin-bottom-25">
+                  <h2>Filter</h2>
+                      <h3>Availability</h3>
+                    <%= form_tag pages_category_products_path(:category_id => @category.id), :method => 'get' do %>
+                    <%= hidden_field_tag :category_id, @category.id %>
+                    <%= hidden_field_tag :option, params[:option] %>
+                    <%= hidden_field_tag :search, params[:search] %>
+                      
+                          <div class="checkbox-list">
+                              
+                              <% 
+                             
+if params[:availability].present? && params[:availability] == "No"
+                                    notAvailable = "checked"
+                                   
+                                else
+                                    notAvailable = ""
+                                end%>
+                               
+                            <label><input type="checkbox" name="availability" value="No" onchange="this.form.submit();" <%=notAvailable%> /> Exclude Out Of Stock (<%=@products.where("in_stock = ?","No").count%>)</label>
+                            
+                          </div>
+                    
+                    <% end %>
+                      <h3>Price</h3>
+                          <p>
+                            <label for="amount">Price Range:</label>
+                                <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+                          </p>
+                          <div id="slider-range"></div>
+                        <%= form_tag pages_category_products_path(:category_id => @category.id), :method => 'get' do %>
+                    <%= hidden_field_tag :category_id, @category.id %>
+                    <%= hidden_field_tag :availability, params[:availability] %>
+                    <%= hidden_field_tag :option, params[:option] %>
+                    
+                    <%= text_field_tag :search_min, params[:search_min],size: "8" %> -
+                    <%= text_field_tag :search_max, params[:search_max],size: "8"  %>
+                          <%= submit_tag "Search", :class => "btn btn-primary" %>
+                        <% end %>
+                    </div>
+
+            <div class="sidebar-products clearfix">
+              <h2>Bestsellers</h2>
+              <div class="item">
+                <a href="shop-item.html"><img src="/frontend/pages/img/products/k1.jpg" alt="Some Shoes in Animal with Cut Out"></a>
+                <h3><a href="shop-item.html">Some Shoes in Animal with Cut Out</a></h3>
+                <div class="price">$31.00</div>
+              </div>
+              <div class="item">
+                <a href="shop-item.html"><img src="/frontend/pages/img/products/k4.jpg" alt="Some Shoes in Animal with Cut Out"></a>
+                <h3><a href="shop-item.html">Some Shoes in Animal with Cut Out</a></h3>
+                <div class="price">$23.00</div>
+              </div>
+              <div class="item">
+                <a href="shop-item.html"><img src="/frontend/pages/img/products/k3.jpg" alt="Some Shoes in Animal with Cut Out"></a>
+                <h3><a href="shop-item.html">Some Shoes in Animal with Cut Out</a></h3>
+                <div class="price">$86.00</div>
+              </div>
+            </div>      
+            </div>
+          
+          <!-- END SIDEBAR -->
+          <!-- BEGIN CONTENT -->
+          <div class="col-md-9 col-sm-7">
+            <div class="row list-view-sorting clearfix">
+              <div class="col-md-2 col-sm-2 list-view">
+                <a href="#"><i class="fa fa-th-large"></i></a>
+                <a href="#"><i class="fa fa-th-list"></i></a>
+              </div>
+              <div class="col-md-10 col-sm-10">
+                <div class="pull-right">
+                    
+                  
+                    <%= form_tag pages_category_products_path(:category_id => @category.id), :method => 'get' do %>
+                    <%= hidden_field_tag :category_id, @category.id %>
+                    <%= hidden_field_tag :availability, params[:availability] %>
+                    <%= hidden_field_tag :option, params[:option] %>
+                    <label class="control-label">Show:</label>
+                    <%= select_tag(:show, options_for_select([['Default', 12],['15', 15], ['25', 25], ['35', 35], ['50', 50], ['70', 70], ['90', 90],['100', 100]], :selected => params[:show]), class: "form-control input-sm",:onchange => "this.form.submit();") %>
+                    <%end%>
+                  
+                </div>
+                <div class="pull-right">
+                    <%= form_tag pages_category_products_path(:category_id => @category.id), :method => 'get' do %>
+                    <%= hidden_field_tag :category_id, @category.id %>
+                    <%= hidden_field_tag :availability, params[:availability] %>
+                    <label class="control-label">Sort&nbsp;By:</label>
+                    <%= select_tag(:option, options_for_select([['Default', 1], ['Name (A - Z)', 2], ['Name (Z - A)', 3], ['Price (Low > High)', 4], ['Price (High > Low)', 5], ['Rating (Highest)', 6],['Rating (Lowest)', 7]], :selected => params[:option]), class: "form-control input-sm",:onchange => "this.form.submit();") %>
+                    <%end%>
+
+                </div>
+              </div>
+            </div>
+            <!-- BEGIN PRODUCT LIST -->
+            <div class="row product-list">
+              <!-- PRODUCT ITEM START -->
+                <%@products.each do |product|%> 
+                <!-- BEGIN fast view of a product -->
+    <div id="product<%= product.id %>-pop-up" style="display: none; width: 700px;">
+            <div class="product-page product-pop-up">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-3">
+                  <div class="product-main-image">
+                    <img src="/frontend/pages/img/products/model7.jpg" alt="Cool green dress with red bell" class="img-responsive">
+                  </div>
+                  <div class="product-other-images">
+                    <a href="#" class="active"><img alt="Berry Lace Dress" src="/frontend/pages/img/products/model3.jpg"></a>
+                    <a href="#"><img alt="Berry Lace Dress" src="/frontend/pages/img/products/model4.jpg"></a>
+                    <a href="#"><img alt="Berry Lace Dress" src="/frontend/pages/img/products/model5.jpg"></a>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-9">
+                    <h2><%= product.title %></h2>
+                  <div class="price-availability-block clearfix">
+                    <div class="price">
+                        <strong><span>$</span><%= product.price %></strong>
+                     
+                    </div>
+                    <div class="availability">
+                        Availability: <strong><%= product.in_stock == "Yes" ? "In Stock" : "Out Of Stock"%></strong>
+                    </div>
+                  </div>
+                  <div class="description">
+                      <p><%= product.description %></p>
+                  </div>
+                  <div class="product-page-options">
+                    <div class="pull-left">
+                      <label class="control-label">Size:</label>
+                      <select class="form-control input-sm">
+                        <option>L</option>
+                        <option>M</option>
+                        <option>XL</option>
+                      </select>
+                    </div>
+                    <div class="pull-left">
+                      <label class="control-label">Color:</label>
+                      <select class="form-control input-sm">
+                        <option>Red</option>
+                        <option>Blue</option>
+                        <option>Black</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="product-page-cart">
+                    <div class="product-quantity">
+                        <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
+                    </div>
+                      <% if product.in_stock == "Yes" %>
+                      <%= button_to "Add to cart", cart_products_path(product_id: product.id,price: product.price), :name => "AddToCart", class: "btn btn-primary" %>
+                    <% else %>
+                      <div class="availability">
+                        <strong>Out Of Stock</strong>
+                    </div>
+                      <%end%>
+                    <a href="shop-item.html" class="btn btn-default">More details</a>
+                  </div>
+                </div>
+
+                <div class="sticker sticker-sale"></div>
+              </div>
+            </div>
+    </div>
+    <!-- END fast view of a product -->
+              <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/model1.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/model1.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product<%= product.id %>-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><%= link_to product.name, product %></h3>
+                    <div class="pi-price">$<%=product.price%></div>
+                    <% if product.in_stock == "Yes"%>
+                            <%= button_to "Add to cart", cart_products_path(product_id: product.id,price: product.price), :name => "AddToCart", class: "btn btn-default add2cart" %>
+                            
+                        <% else %>
+                        <div class="add2cart">
+                            Out Of Stock
+                        </div>
+                        <%end%>
+                </div>
+              </div>
+                <% end %>
+                <!-- PRODUCT ITEM END -->
+             
+            </div>
+            <!-- END PRODUCT LIST -->
+            <!-- BEGIN PAGINATOR -->
+            <div class="row">
+              <div class="col-md-4 col-sm-4 items-info">Page <%= @products.current_page %> of <%= @products.total_pages %> 
+                <div class="digg_pagination">
+                    <div class="page_info">
+                      <%= page_entries_info @products %>
+                    </div>
+   
+                 </div>
+                </div>
+              <div class="col-md-8 col-sm-8">
+                <ul class="pagination pull-right">
+                  <li><span><%= will_paginate @products %></span></li>
+
+                </ul>
+              </div>
+            </div>
+            <!-- END PAGINATOR -->
+          </div>
+          <!-- END CONTENT -->
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+      </div>
+    </div>
+ <script>
+$(function() {
+$( "#slider-range" ).slider({
+range: true,
+min: 0,
+max: 500,
+values: [ 75, 300 ],
+slide: function( event, ui ) {
+$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+}
+});
+$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+" - $" + $( "#slider-range" ).slider( "values", 1 ) );
+});
+</script>

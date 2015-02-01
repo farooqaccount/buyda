@@ -1,0 +1,261 @@
+<% content_for :title, "Shopping Cart" %> 
+<% if get_cart_products.count == 0 %>
+    <% if session[:coupon_usage] 
+        session[:coupon_usage] = nil
+       end
+        if session[:coupon] 
+        session[:coupon] = nil
+       end
+%>
+<div class="main">
+      <div class="container">
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+          <!-- BEGIN CONTENT -->
+          <div class="col-md-12 col-sm-12">
+              <%= "No item in the cart please add items to checkout" %>
+              
+           </div>
+          </div>
+          <div class="row margin-bottom-40">
+          <!-- BEGIN CONTENT -->
+          <div class="col-md-12 col-sm-12">
+              <%= link_to pages_home_path, class: "btn btn-default" do%>
+                    Continue Shopping &nbsp;<i class="fa fa-shopping-cart"></i>
+                <%end%>
+           </div>
+          </div>
+    </div>
+</div>
+
+<% else %>
+<%  
+actual_price = 0
+total_price = 0
+isValidCoupon = @is_coupon_valid
+discount_price = 0
+%>
+<div class="main">
+      <div class="container">
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+          <!-- BEGIN CONTENT -->
+          <div class="col-md-12 col-sm-12">
+            <h1>Shopping cart</h1>
+            <div class="goods-page">
+              <div class="goods-data clearfix">
+                <div class="table-wrapper-responsive">
+                <table summary="Shopping cart">
+                  <tr>
+                    <th class="goods-page-image">Image</th>
+                    <th class="goods-page-description">Description</th>
+                    <th class="goods-page-quantity">Quantity</th>
+                    <th class="goods-page-price">Unit price</th>
+                    <th class="goods-page-total" colspan="2">Total</th>
+                  </tr>
+                  <% @cart_products.each_with_index do |cart_product,index|%>
+                    <% session[:product_id]= cart_product.product.id %>
+                  <tr>
+                    <td class="goods-page-image">
+                      <a href="#"><img src="/frontend/pages/img/products/model3.jpg" alt="Berry Lace Dress"></a>
+                    </td>
+                    <td class="goods-page-description">
+                      <h3><a href="#"><%=cart_product.product.name %></a></h3>
+                        <p><strong>Item <%=index+1%></strong> - Color: Green; Size: S</p>
+                        <em><%= cart_product.product.description%></em>
+                    </td>
+                    
+                    <td class="goods-page-quantity">
+                        <%= best_in_place cart_product, :quantity, :html_attrs => {:size => '2'} %>
+                    </td>
+                    <% 
+                        individual_price = calculate_total(nil,cart_product)
+                       actual_price += individual_price 
+                    %>
+                    <td class="goods-page-price">
+                      <strong><span>$</span><%= individual_price %></strong>
+                    </td>
+                    <% if cart_product.has_coupon && isValidCoupon %>
+                    <% individual_price = calculate_total(@coupon,cart_product)  %>
+                    <td class="goods-page-total">
+                      <strong><span>$</span><%=individual_price%></strong>
+                    </td>
+                    <% total_price += individual_price %> 
+                    <%else
+                        individual_price = calculate_total(nil,cart_product)
+                        total_price += individual_price %>
+                      <td class="goods-page-total">
+                      <strong><span>$</span><%=individual_price%></strong>
+                    </td>
+                    <%end%>
+                    <td class="del-goods-col">
+                      <%= link_to cart_product_path(cart_product.id), method: :delete, date: {confirm: "Are you sure?"} do %>
+                         
+                          <i class="del-goods"></i>
+                        <% end%>
+                    </td>
+                  </tr>
+                 <% end %>
+                  <tr>
+                    <th class="goods-page-price" colspan=6>I have a discount coupon or promotion code</th>
+                  </tr>
+                  <tr>
+                      <td class="goods-page-price" colspan="6">
+                      <%= form_tag cart_products_path, :method => 'get' do %>
+                        E-Coupon: <%= text_field_tag :coupon, params[:coupon]%>
+                      <%= submit_tag "Apply", class: "btn btn-default"%>
+                      <% end %>
+                      </td>
+                  </tr>
+                </table>
+                </div>
+
+                <div class="shopping-total">
+                 
+                  <ul>
+                    <li>
+                      <em>Sub total</em>
+                      <strong class="price"><span>$</span><%= total_price %></strong>
+                      <% session[:total_price] = total_price%>
+                    </li>
+                    
+                        <li>
+                          <em>Savings</em>
+                            <strong class="price"><%= actual_price > total_price ? "$#{actual_price - total_price}" : "--"%></strong>
+                          <%session[:discount] = discount_price %>
+                        </li>
+                        
+                   
+                    <li>
+                      <em>Shipping cost</em>
+                      <strong class="price"><span>$</span>3.00</strong>
+                    </li>
+                    <li class="shopping-total-price">
+                      <em>Total</em>
+                      <strong class="price"><span>$</span><%= grand_total = discount_price > 0 && discount_price.present? ? total_price-discount_price : total_price %></strong>
+                      <%session[:grand_total] = grand_total %>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+               
+               
+                <%= link_to pages_home_path, class: "btn btn-default" do%>
+                    Continue Shopping &nbsp;<i class="fa fa-shopping-cart"></i>
+                <%end%>
+                
+                <%= link_to user_cart_path(session[:cart_id]), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" do%>
+                    Empty Cart &nbsp;<i class="fa fa-frown"></i>
+                <%end%>
+                
+                <%= link_to new_order_path, class: "btn btn-primary" do%>
+                    Checkout &nbsp;<i class="fa fa-check"></i>
+                <%end%>
+              
+              
+            </div>
+          </div>
+          <!-- END CONTENT -->
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+
+        <!-- BEGIN SIMILAR PRODUCTS -->
+        <div class="row margin-bottom-40">
+          <div class="col-md-12 col-sm-12">
+            <h2>Most popular products</h2>
+            <div class="owl-carousel owl-carousel4">
+              <div>
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/k1.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/k1.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
+                  <div class="pi-price">$29.00</div>
+                  <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                  <div class="sticker sticker-new"></div>
+                </div>
+              </div>
+              <div>
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/k2.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/k2.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><a href="shop-item.html">Berry Lace Dress2</a></h3>
+                  <div class="pi-price">$29.00</div>
+                  <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                </div>
+              </div>
+              <div>
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/k3.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/k3.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><a href="shop-item.html">Berry Lace Dress3</a></h3>
+                  <div class="pi-price">$29.00</div>
+                  <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                </div>
+              </div>
+              <div>
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/k4.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/k4.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><a href="shop-item.html">Berry Lace Dress4</a></h3>
+                  <div class="pi-price">$29.00</div>
+                  <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                  <div class="sticker sticker-sale"></div>
+                </div>
+              </div>
+              <div>
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/k1.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/k1.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><a href="shop-item.html">Berry Lace Dress5</a></h3>
+                  <div class="pi-price">$29.00</div>
+                  <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                </div>
+              </div>
+              <div>
+                <div class="product-item">
+                  <div class="pi-img-wrapper">
+                    <img src="/frontend/pages/img/products/k2.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <div>
+                      <a href="/frontend/pages/img/products/k2.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                    </div>
+                  </div>
+                  <h3><a href="shop-item.html">Berry Lace Dress6</a></h3>
+                  <div class="pi-price">$29.00</div>
+                  <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END SIMILAR PRODUCTS -->
+      </div>
+
+    <% end %>
+
+   

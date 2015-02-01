@@ -1,0 +1,21 @@
+<%= form_for @length_class do |f|%>
+
+<% if @length_class.errors.any?%>
+     <h4> Below error prohibited the length class to save </h4>
+    <ul>
+        <% @length_class.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label>  Length Title:</label><br />
+<%= f.text_field :title%><br />
+
+<label> Length Unit:</label><br />
+<%= f.text_field :unit%><br />
+
+<label> Value:</label><br />
+<%= f.text_field :value%><br />
+
+<%= f.submit%>
+<% end %>

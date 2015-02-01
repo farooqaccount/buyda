@@ -1,0 +1,33 @@
+<li class="dropdown dropdown100 nav-catalogue">
+              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">
+                New
+                <i class="fa fa-angle-down"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <div class="header-navigation-content">
+                    <div class="row">
+                      <% @new_arrivals.each do |product| %>
+                      <div class="col-md-3 col-sm-4 col-xs-6">
+                        <div class="product-item">
+                          <div class="pi-img-wrapper">
+                            <a href="shop-item.html"><img src="/frontend/pages/img/products/model4.jpg" class="img-responsive" alt="Berry Lace Dress"></a>
+                          </div>
+                            <h3><%= link_to product.name, show_product_product_path(product)%></h3>
+                            <div class="pi-price">$<%=product.price%></div>
+                            <% if product.in_stock%>
+                              <%= button_to "Add to cart", cart_products_path(product_id: product.id,price: product.price), :name => "AddToCart", class: "btn btn-default add2cart" %>
+                            <% else %>
+                            <%= button_to "Out Of Stock", class: "btn btn-default add2cart", :disabled => true %>
+                           
+                          <%end%>
+                          
+                        </div>
+                      </div>
+                        <% end %>
+                      
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>

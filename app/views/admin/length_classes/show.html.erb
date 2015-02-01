@@ -1,0 +1,7 @@
+<h3><%= @length_class.title %></h3><br />
+
+<p> <strong>Length Unit:</strong> <%=@length_class.unit%></p>
+<p> <strong>value:</strong> <%= @length_class.value%></p>
+    
+<p><%= link_to "All Length Classes", length_classes_path%> | <%= link_to "Edit Length Class", edit_length_class_path(@length_class.id)%>
+    | <%= link_to "Delete Length Class", length_class_path(@length_class.id), method: :delete, data: {confirm: "Are you sure?"} %></p>

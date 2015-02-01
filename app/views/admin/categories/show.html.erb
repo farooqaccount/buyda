@@ -1,0 +1,20 @@
+<% @category.ancestors.each do |category| %>
+    <%= link_to category.name, category %> &gt;
+  <% end %>
+<h4> <%= @category.name %> </h4>
+
+<p><strong> Category Description: </strong> <%= @category.description%></p>
+<p><strong> Is Active? : </strong> <%= @category.is_active%></p>
+<p><strong> Meta Description : </strong> <%= @category.meta_description%></p>
+<p><strong> Meta Title : </strong> <%= @category.meta_title%></p>
+<p><strong> Meta Keyword : </strong> <%= @category.meta_keyword%></p>
+<p><strong> SEO Title : </strong> <%= @category.title%></p>
+
+<p><strong> Parent : </strong> <% 
+
+@category.ancestors.each_with_index do |category,index| %>
+    <%= category.name %> &gt;
+   
+  <% end %></p>
+
+<%= link_to "All Categories", categories_path  %> | <%= link_to "Edit", edit_category_path(@category.id) %> | <%= link_to "Delete", category_path(@category.id) , method: :delete, data: {confirm: "Are you sure?"}%>

@@ -1,0 +1,92 @@
+<% content_for :title, "Login" %>
+<div class="main">
+      <div class="container">
+        
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+          <!-- BEGIN SIDEBAR -->
+          <div class="sidebar col-md-3 col-sm-3">
+              <%= render "sidebar"%>
+          </div>
+          <!-- END SIDEBAR -->
+
+          <!-- BEGIN CONTENT -->
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="col-md-9 col-sm-9">
+            <h1>Login</h1>
+            <div class="content-form-page">
+              <div class="row">
+                <div class="col-md-7 col-sm-7">
+                   <!-- Display error -->
+                  <% if @user.errors.any?%>
+                    <ul>
+                    <% @user.errors.full_messages.each do |msg|%>
+                        <li><%= msg %></li>
+                    <% end %>
+                    </ul>
+                  <% end %>
+                  </div>
+              <!-- End of Display error -->
+                <div class="col-md-7 col-sm-7">
+                  
+                  <form class="form-horizontal form-without-legend" role="form">
+                    <div class="form-group">
+                      <label for="email" class="col-lg-4 control-label">Username / Email <span class="require">*</span></label>
+                      <div class="col-lg-8">
+                          <%= f.text_field :login, autofocus: true,id: "email", class: "form-control", :placeholder => 'Username OR Email' %>
+                      </div>
+                    </div>
+                      <br>
+                    <div class="form-group">
+                      <label for="password" class="col-lg-4 control-label">Password <span class="require">*</span></label>
+                      <div class="col-lg-8">
+                          <%= f.password_field :password, autocomplete: "off",id: "password", class: "form-control", :placeholder => 'Password' %>
+                      </div>
+                    </div>
+                    <% if devise_mapping.rememberable? %>
+                    <div class="row">
+                      <div class="col-lg-8 col-md-offset-4 padding-left-0">
+                        <%= f.check_box :remember_me %> Remember me
+                      </div>
+                    </div>
+                      <% end %>
+                    <div class="row">
+                      <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+                        <%= f.submit "LOGIN", class: "btn btn-primary"%>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-lg-8 col-md-offset-4 padding-left-0">
+                        <%= render "devise/shared/links" %>
+                      </div>
+                    </div>
+                      
+                    <div class="row">
+                      <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-10 padding-right-30">
+                        <hr>
+                        <div class="login-socio">
+                            <p class="text-muted">or login using:</p>
+                            <ul class="social-icons">
+                                <li><a href="#" data-original-title="facebook" class="facebook" title="facebook"></a></li>
+                                <li><a href="#" data-original-title="Twitter" class="twitter" title="Twitter"></a></li>
+                                <li><a href="#" data-original-title="Google Plus" class="googleplus" title="Google Plus"></a></li>
+                                <li><a href="#" data-original-title="Linkedin" class="linkedin" title="LinkedIn"></a></li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-md-4 col-sm-4 pull-right">
+                  <%= render "right_sidebar"%>
+                </div>
+              </div>
+            </div>
+          </div>
+            <% end %>
+          <!-- END CONTENT -->
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+      </div>
+    </div>

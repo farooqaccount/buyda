@@ -1,0 +1,43 @@
+<%- model_class = Order -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table id="orders" class="table table-bordered">
+  <thead>
+    <tr>
+      
+      <th>Order ID</th>
+      <th>Customer</th>
+      <th>Order Status</th>
+      <th>Created at</th>
+      <th>Total</th>
+         
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @orders.each do |order| %>
+      <tr>
+          <td><%= link_to order.id, order_path(order) %></td>
+          <td><%= order.user.user_name %></td>
+        <td><%= order.order_status.name %></td>
+        <td><%= order.created_at.strftime("%B %d %Y") %></td>
+        <td><%= order.discounted_total %></td>
+               
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+      edit_order_path(order), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+      order_path(order),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+    new_order_path,
+            :class => 'btn btn-primary' %>

@@ -1,0 +1,19 @@
+<h1> List of Attribute Groups </h1>
+
+<table border="1">
+    <tr>
+        <th>Attribute Group Name</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <%@attribute_groups.each do |attribute_group|%>
+        <tr>
+            <td><%= attribute_group.name %></td>
+            <td><%= link_to "Show", attribute_group_path(attribute_group.id)%></td>
+            <td><%= link_to "Edit", edit_attribute_group_path(attribute_group.id)%></td>
+            <td><%= link_to "Delete", attribute_group_path(attribute_group.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add attribute group", new_attribute_group_path %>

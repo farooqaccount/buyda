@@ -1,0 +1,15 @@
+<h3><%= @currency.title %></h3><br />
+
+<p> <strong>Currency Title:</strong> <%=@currency.title%></p>
+<p> <strong>Code:</strong> <%= @currency.code%></p>
+<p> <strong>Symbol Left:</strong> <%= @currency.symbol_left%></p>
+<p> <strong>Symbol Right:</strong> <%= @currency.symbol_right%></p>
+<p> <strong>Decimal Places:</strong> <%= @currency.decimal_place%></p>
+<p> <strong>Value:</strong> <%= @currency.value%></p>
+<p> <strong>Last Updated:</strong> <%= @currency.updated_at.strftime("%d %b %Y")%></p>
+<p> <strong>Is Default?:</strong> <%= @currency.is_default ? "Yes" : "No"%></p>
+<p> <strong>Status:</strong> <%= @currency.status%></p>
+
+    
+<p><%= link_to "All Currencies", currencies_path%> | <%= link_to "Edit currency", edit_currency_path(@currency.id)%>
+    | <%= link_to "Delete currency", currency_path(@currency.id), method: :delete, data: {confirm: "Are you sure?"} %></p>

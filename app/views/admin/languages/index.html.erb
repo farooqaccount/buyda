@@ -1,0 +1,19 @@
+<h1> List of Languages </h1>
+
+<table border="1">
+    <tr>
+        <th>Language Name</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <%@languages.each do |language|%>
+        <tr>
+            <td><%= language.name %></td>
+            <td><%= link_to "Show", language_path(language.id)%></td>
+            <td><%= link_to "Edit", edit_language_path(language.id)%></td>
+            <td><%= link_to "Delete", language_path(language.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add langugae", new_language_path %>

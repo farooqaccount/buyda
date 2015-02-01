@@ -1,0 +1,43 @@
+<%= form_for @coupon, :html => {:class => 'form-horizontal'} do |f|%>
+<% if @coupon.errors.any?%>
+     <h4> Below error prohibited the coupon to save </h4>
+    <ul>
+        <% @coupon.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label>Coupon Code:</label><br />
+<%= f.text_field :coupon_code %><br />
+<label>Coupon Type:</label><br />
+<%=f.select :coupon_type, options_for_coupon_types%><br />
+<label>Coupon Discount:</label><br />
+<%= f.text_field :discount %><br />
+<label>Usage:</label><br />
+<%= f.text_field :usage %><br />
+<label>Total Amount:</label><br />
+<%= f.text_field :total_amount %><br />
+<label>User Logged In? :</label><br />
+<%= f.check_box :user_logged_in %><br />
+<label>Uses per coupon :</label><br />
+<%= f.text_field :uses_per_coupon %><br />
+<label>Uses per user :</label><br />
+<%= f.text_field :uses_per_user %><br />
+<label>Start Date:</label><br />
+<%= f.date_select :start_date %><br />
+<label>End Date:</label><br />
+<%= f.date_select :end_date %><br />
+<%= f.label :product_tokens, "Products" %><br />
+<%= f.text_field :product_tokens, "data-pre" =>         @coupon.products.map(&:attributes).to_json %><br />
+<%= f.label :manufacturer_tokens, "Manufacturers" %><br />
+<%= f.text_field :manufacturer_tokens, "data-pre" => @coupon.manufacturers.map(&:attributes).to_json %> <br />
+<%= f.label :category_tokens, "Categories" %><br />
+<%= f.text_field :category_tokens,  "data-pre" => @coupon.categories.map(&:attributes).to_json %><br />
+
+<div class="form-control">
+  <%= f.submit nil, :class => "btn btn-primary"%>
+  <%= link_to "Cancel",coupons_path, :class => "btn btn-default btn-label-left"%>
+</div>
+
+
+<% end %>

@@ -1,0 +1,24 @@
+<h1> Reviews </h1>
+
+<table border="1">
+    <tr>
+        <th>Product</th>
+        <th>Author</th>
+        <th>Rating</th>
+        <th>Status</th>
+        <th> Date Added </th>
+        
+    </tr>
+    <%@reviews.each do |review|%>
+        <tr>
+            <td><%= !review.product.nil? ? review.product.name : "" %></td>
+            <td><%= review.author %></td>
+            <td><%= review.rating %></td>
+            <td><%= review.status %></td>
+            <td><%= review.created_at.strftime("%B %d %Y %H:%M:%S %Z") %></td>
+            <td><%= link_to "Show", review_path(review.id)%> | <%= link_to "Edit", edit_review_path(review.id)%> | <%= link_to "Delete", review_path(review.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+            
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add Review", new_review_path %>

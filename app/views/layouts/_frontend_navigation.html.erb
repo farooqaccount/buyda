@@ -1,0 +1,12 @@
+<% categories.roots.each do |category| %>
+  
+<li class="dropdown dropdown-megamenu">
+              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">
+                <%= category.name %>
+                <i class="fa fa-angle-down"></i>
+              </a>
+              <ul class="dropdown-menu">
+                  <%= render "/layouts/frontend_submenu_navigation", sub_categories: category.children if category.children.present?%>
+              </ul>
+            </li>
+<% end %>

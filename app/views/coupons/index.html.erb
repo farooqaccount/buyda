@@ -1,0 +1,23 @@
+<h1> List of Coupons </h1>
+
+<table border="1">
+    <tr>
+        <th>Coupon Code</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Coupon Type</th>
+        <th> Action </th>
+        
+    </tr>
+    <%@coupons.each do |coupon|%>
+        <tr>
+            <td><%= coupon.coupon_code %></td>
+            <td><%= coupon.start_date %></td>
+            <td><%= coupon.end_date %></td>
+            <td><%= coupon.coupon_type %></td>
+            <td><%= link_to "Show", coupon_path(coupon.id)%> | <%= link_to "Edit", edit_coupon_path(coupon.id)%> | <%= link_to "Delete", coupon_path(coupon.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+            
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add Coupon", new_coupon_path %>

@@ -1,0 +1,18 @@
+<%= form_for @return_status do |f|%>
+
+<% if @return_status.errors.any?%>
+     <h4> Below error prohibited the return status to save </h4>
+    <ul>
+        <% @return_status.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label> Return Status Name:</label><br />
+<%= f.text_field :name%><br />
+
+<label> Is Default?:<lable><br />
+<%= f.check_box :is_default %><br />
+
+    <%= f.submit%>
+<% end %>

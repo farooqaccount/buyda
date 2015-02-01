@@ -1,0 +1,25 @@
+<h1> List of payment detail </h1>
+
+<table border="1">
+    <tr>
+        <th>Property Code</th>
+        <th>Payment Date</th>
+        <th>Payment Type</th>
+        <th>Payment Amount</th>
+        <th>Payment Mode</th>
+        <th> Action </th>
+        
+    </tr>
+    <%@payment_details.each do |payment_detail|%>
+        <tr>
+            <td><%= payment_detail.property.property_code %></td>
+            <td><%= payment_detail.payment_date %></td>
+            <td><%= payment_detail.payment_type %></td>
+            <td><%= payment_detail.payment_amount %></td>
+            <td><%= payment_detail.payment_mode %></td>
+            <td><%= link_to "Show", payment_detail_path(payment_detail.id)%> | <%= link_to "Edit", edit_payment_detail_path(payment_detail.id)%> | <%= link_to "Delete", payment_detail_path(payment_detail.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+            
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add Payment Detail", new_payment_detail_path %>

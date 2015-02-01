@@ -1,0 +1,37 @@
+<%= form_for @language do |f|%>
+
+<% if @language.errors.any?%>
+     <h4> Below error prohibited the language to save </h4>
+    <ul>
+        <% @language.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label> Language Name:</label><br />
+<%= f.text_field :name%><br />
+
+<label> Language Code:</label><br />
+<%= f.text_field :code%><br />
+
+<label> Language locale:</label><br />
+<%= f.text_field :locale%><br />
+
+<label> Directory:</label><br />
+<%= f.text_field :directory%><br />
+
+<label> Filename:</label><br />
+<%= f.text_field :filename%><br />
+
+<label>Sort Order:</label><br />
+<%= f.text_field :sort_order%><br />
+
+<label> Is Default?:<lable><br />
+    <%= f.check_box :is_default %><br />
+
+<label>Status: </label>
+<%=f.select :status, options_for_select([["Enable", "Enable"], ["Disable", "Disable"]])%>
+<br />
+
+<%= f.submit%>
+<% end %>

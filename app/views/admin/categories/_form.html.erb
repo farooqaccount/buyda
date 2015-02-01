@@ -1,0 +1,39 @@
+<%= form_for @category do |f|%>
+
+<% if @category.errors.any?%>
+     <h4> Below error prohibited the category to save </h4>
+    <ul>
+        <% @category.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label>Name:</label><br />
+<%= f.text_field :name%><br />
+
+<label>Description:</label><br />
+<%= f.text_area :description%><br />
+
+<label>Meta Title: </label><br />
+<%= f.text_area :meta_title%><br />
+
+<label>Meta Description: </label><br />
+<%= f.text_area :meta_description%><br />
+
+<label>Meta Keyword: </label><br />
+<%= f.text_area :meta_keyword%><br />
+
+<label>Is Active?: </label><br />
+<%= f.radio_button :is_active, "Yes"%>Yes
+<%= f.radio_button :is_active, "No"%>No
+<br />
+
+<label>SEO Title:</label><br />
+<%= f.text_field :title%><br />
+
+<%= f.label :parent_id %><br />
+<%= f.collection_select :parent_id, @categories_select, :id, :name_for_selects, :include_blank => true %>
+
+<%= f.submit%>
+
+<% end %>

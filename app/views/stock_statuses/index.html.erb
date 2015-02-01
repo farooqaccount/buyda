@@ -1,0 +1,17 @@
+<h1> List of Stock Statuses </h1>
+
+<table border="1">
+    <tr>
+        <th>Stock Status</th>
+        <th> Action </th>
+        
+    </tr>
+    <%@stock_statuses.each do |stock_status|%>
+        <tr>
+            <td><%= stock_status.name %> <%= !stock_status.is_default.nil? && stock_status.is_default ? " (Default)" : "" %></td>
+            <td><%= link_to "Show", stock_status_path(stock_status.id)%> | <%= link_to "Edit", edit_stock_status_path(stock_status.id)%> | <%= link_to "Delete", stock_status_path(stock_status.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+            
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add Stock Status", new_stock_status_path %>

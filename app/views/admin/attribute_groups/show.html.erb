@@ -1,0 +1,6 @@
+<h4> <%= @attribute_group.name %> </h4>
+
+<p><strong> Sort Order: </strong> <%= @attribute_group.sort_order%></p>
+
+
+<%= link_to "All Attribute Groups", attribute_groups_path  %> | <%= link_to "Edit", edit_attribute_group_path(@attribute_group.id) %> | <%= link_to "Delete", attribute_group_path(@attribute_group.id) , method: :delete, data: {confirm: "Are you sure?"}%>

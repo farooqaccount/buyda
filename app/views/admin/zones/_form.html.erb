@@ -1,0 +1,26 @@
+<%= form_for @zone do |f|%>
+
+
+<% if @zone.errors.any? %>
+        <h4> Below error prohibited the zone to save </h4>
+<ul>
+<% @zone.errors.full_messages.each do |msg|%>
+    <li><%= msg%></li>
+ <% end %>
+</ul>
+<% end %>
+<label>Country:</label><br />
+<%= f.collection_select :country_id,Country.all,:id,:name,:prompt => "Select Country"%><br />
+
+ 
+<label> Zone Name: </label><br />
+<%=f.text_field :name%><br />
+
+<label>Code:</label><br />
+<%=f.text_field :code%><br />
+
+<label> Status:<lable><br />
+<%= f.select :status, %w{Enable Disable}%><br />
+    
+    <%= f.submit%>
+<% end %>

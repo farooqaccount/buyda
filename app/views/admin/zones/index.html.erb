@@ -1,0 +1,23 @@
+<h1>List of zone</h1>
+
+<table border="1">
+    <tr>
+        <th> Country </th>
+        <th> Zone Name </th>
+        <th>Zone Code</th>
+        <th> Action</th>
+       
+    </tr>
+    <%@zones.each do |zone|%>
+    <tr>
+        <td><%= !zone.country.nil? ? zone.country.name : ""%></td>
+        <td><%= zone.name%></td>
+        <td><%= zone.code%></td>
+        <td><%= link_to "Show",zone_path(zone.id) %> |
+        <%= link_to "Edit", edit_zone_path(zone.id)%> |
+        <%= link_to "Delete", zone_path(zone.id), method: :delete, data: {confirm: "Are you sure?"}%></td>
+    </tr>
+    <% end %>
+</table>
+    
+<%=link_to "Add Zone", new_zone_path%> | <%=link_to "Countries", countries_path%>

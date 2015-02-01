@@ -1,0 +1,6 @@
+<h3><%= @payment_detail.property.property_code %></h3><br />
+<h3><%= @payment_detail.payment_date %></h3><br />
+<h3><%= @payment_detail.payment_type %></h3><br />
+<h3><%= @payment_detail.payment_mode %></h3><br />
+<p><%= link_to "All Payment Details", payment_details_path%> | <%= link_to "Edit payment details", edit_payment_detail_path(@payment_detail.id)%>
+    | <%= link_to "Delete payment detail", payment_detail_path(@payment_detail.id), method: :delete, data: {confirm: "Are you sure?"} %></p>

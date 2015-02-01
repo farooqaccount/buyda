@@ -1,0 +1,13 @@
+<% if @admin_cart_products.empty? %>
+<p><%= "No item in the cart please add items to checkout" %></p>
+<%= link_to "Continue Shopping", pages_admin_home_path%>
+<% else %>
+<% @admin_cart_products.each do |cart_product|%>
+<%=!cart_product.manufacturer_product.name.nil? ? cart_product.manufacturer_product.name : ""%>
+<%=!cart_product.manufacturer_product.price.nil? ? cart_product.manufacturer_product.price : ""%>
+<%=!cart_product.manufacturer_product.manufacturer_id.nil? ? cart_product.manufacturer_product.manufacturer.name : ""%>
+<%= link_to "Remove Product", admin_cart_product_path(cart_product.id), method: :delete, date: {confirm: "Are you sure?"}%>
+    <% end %>
+    Total = <%= @total_price%>
+<%= link_to "Continue Shopping", pages_admin_home_path%>
+<% end %>

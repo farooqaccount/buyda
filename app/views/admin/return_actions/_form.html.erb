@@ -1,0 +1,15 @@
+<%= form_for @return_action do |f|%>
+
+<% if @return_action.errors.any?%>
+     <h4> Below error prohibited the return action to save </h4>
+    <ul>
+        <% @return_action.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label> Return Action Name:</label><br />
+<%= f.text_field :name%><br />
+
+    <%= f.submit%>
+<% end %>

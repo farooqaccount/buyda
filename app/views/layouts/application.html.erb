@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.1.1
+Version: 3.0.1
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<!-- Head BEGIN -->
+<head>
+  <meta charset="utf-8">
+    <title>Buyda - <%= yield(:title).present? ? yield(:title) : "Home" %></title>
+
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta content="Buyda Shop UI description" name="description">
+  <meta content="Buyda Shop UI keywords" name="keywords">
+  <meta content="keenthemes" name="author">
+
+  <meta property="og:site_name" content="-CUSTOMER VALUE-">
+  <meta property="og:title" content="-CUSTOMER VALUE-">
+  <meta property="og:description" content="-CUSTOMER VALUE-">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="-CUSTOMER VALUE-"><!-- link to image for socio -->
+  <meta property="og:url" content="-CUSTOMER VALUE-">
+
+<!--   <link rel="shortcut icon" href="favicon.ico"> -->
+
+  <!-- Fonts START -->
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css"><!--- fonts for slider on the index page -->  
+  <!-- Fonts END -->
+
+  <!-- /global styles START -->          
+  <link href="/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/global/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <!-- /global styles END --> 
+   
+  <!-- Page level plugin styles START -->
+  <link href="/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet">
+  <link href="/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.css" rel="stylesheet">
+  <link href="/global/plugins/slider-layer-slider/css/layerslider.css" rel="stylesheet">
+  <!-- Page level plugin styles END -->
+
+  <!-- Theme styles START -->
+  <link href="/global/css/components.css" rel="stylesheet">
+  <link href="/frontend/layout/css/style.css" rel="stylesheet">
+  <link href="/frontend/pages/css/style-shop.css" rel="stylesheet" type="text/css">
+  <link href="/frontend/pages/css/style-layer-slider.css" rel="stylesheet">
+  <link href="/frontend/layout/css/style-responsive.css" rel="stylesheet">
+  <link href="/frontend/layout/css/themes/red.css" rel="stylesheet" id="style-color">
+  <link href="/frontend/layout/css/custom.css" rel="stylesheet">
+    
+  <!-- Theme styles END -->
+    <!-- stylesheet for rails -->
+      <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+<!--      -->
+    <!-- securiy token for rails -->
+    <%= csrf_meta_tags %>
+</head>
+<!-- Head END -->
+
+<!-- Body BEGIN -->
+<body class="ecommerce">
+    <!-- BEGIN STYLE CUSTOMIZER -->
+    <div class="color-panel hidden-sm">
+      <div class="color-mode-icons icon-color"></div>
+      <div class="color-mode-icons icon-color-close"></div>
+      <div class="color-mode">
+        <p>THEME COLOR</p>
+        <ul class="inline">
+          <li class="color-red current color-default" data-style="red"></li>
+          <li class="color-blue" data-style="blue"></li>
+          <li class="color-green" data-style="green"></li>
+          <li class="color-orange" data-style="orange"></li>
+          <li class="color-gray" data-style="gray"></li>
+          <li class="color-turquoise" data-style="turquoise"></li>
+        </ul>
+      </div>
+    </div>
+    <!-- END BEGIN STYLE CUSTOMIZER --> 
+
+    <!-- BEGIN TOP BAR -->
+    <div class="pre-header">
+        <div class="container">
+            <div class="row">
+                <!-- BEGIN TOP BAR LEFT PART -->
+                <div class="col-md-6 col-sm-6 additional-shop-info">
+                    <ul class="list-unstyled list-inline">
+                        <li><i class="fa fa-phone"></i><span>+91 98802 87197</span></li>
+                        <!-- BEGIN CURRENCIES -->
+                        <% if current_user %>
+                        <li class="shop-currencies">
+                            <a href="javascript:void(0);">€</a>
+                            <a href="javascript:void(0);">£</a>
+                            <a href="javascript:void(0);" class="current">$</a>
+                        </li>
+                        <!-- END CURRENCIES -->
+                        <!-- BEGIN LANGS -->
+                        
+                        <li class="langs-block">
+                            <a href="javascript:void(0);" class="current">English <i class="fa fa-angle-down"></i></a>
+                            <div class="langs-block-others-wrapper"><div class="langs-block-others">
+                              <a href="javascript:void(0);">French</a>
+                              <a href="javascript:void(0);">Germany</a>
+                              <a href="javascript:void(0);">Turkish</a>
+                            </div></div>
+                        </li>
+                        <%else%>
+                            <li><i class="fa fa-envelope-o"></i><span>info@buyda.com</span></li>
+                        <% end %>
+                        <!-- END LANGS -->
+                    </ul>
+                </div>
+                <!-- END TOP BAR LEFT PART -->
+                <!-- BEGIN TOP BAR MENU -->
+                <div class="col-md-6 col-sm-6 additional-nav">
+                    <ul class="list-unstyled list-inline pull-right">
+                        
+                        <% if current_user %>
+                        <li><%= link_to "My Account", pages_my_account_path %></li>
+                        <li><%= link_to "My Wishlist", :controller => "wishlists", :action => "index"  %>(<%=get_wishlist_count%>)</li>
+                        <% if get_cart_products.count > 0%>
+                        <li><%= link_to "Checkout", new_order_path %></li>
+                        <% end %>
+                        <li>Hi <%=current_user.first_name%>! <%= link_to "Logout", destroy_user_session_path,:method => :delete %></li>
+                        <% else %>
+                        <li><%= link_to "Login", new_user_session_path %></li>
+                        <li><%= link_to "Register", new_user_registration_path %></li>
+                        <%end%>
+                    </ul>
+                </div>
+                <!-- END TOP BAR MENU -->
+            </div>
+        </div>        
+    </div>
+    <!-- END TOP BAR -->
+
+    <!-- BEGIN HEADER -->
+    <div class="header">
+      <div class="container">
+        
+        <a class="site-logo" href="/"><img src="/frontend/layout/img/logos/logo-shop-red.png" alt="Metronic Shop UI"></a>
+
+        <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+
+        <!-- BEGIN CART -->
+        <% if current_user %>
+        <div class="top-cart-block">
+          <div class="top-cart-info">
+              <a href="javascript:void(0);" class="top-cart-info-count"><% product_count= get_cart_products.count%> <%= pluralize(product_count,"Item")%></a>
+              <a href="javascript:void(0);" class="top-cart-info-value">
+                  <% 
+                    grand_total = 0
+                    get_cart_products.each do |cart_product| 
+                        grand_total += cart_product.product_price
+                    end%>
+                  $<%=grand_total%></a>
+          </div>
+          <i class="fa fa-shopping-cart"></i>
+                        
+          <div class="top-cart-content-wrapper">
+              <% if get_cart_products.count > 0%>
+              <div class="top-cart-content">
+                <% initial_height = 50
+                   max_height = 250
+                get_cart_products.each_with_index do |cart_product,index|
+                    initial_height = initial_height*(index+1)
+                end
+                if initial_height <= max_height
+                    height = initial_height
+                else
+                    height = max_height
+                end
+                %>
+              <ul class="scroller" style="height: <%=height%>px;">
+                <% 
+                total_price = calculate_total_price(get_cart_products)
+                coupon = nil
+                if !session[:coupon].nil?
+                    coupon = find_by_coupon_code(session[:coupon])
+                end
+
+                if !coupon.nil?
+                    isValidCoupon = validate_coupon(get_cart_products,coupon, session,total_price) 
+                else
+                    isValidCoupon = false
+                end
+
+                get_cart_products.each_with_index do |cart_product|%>
+                <li>
+                    <%=link_to image_tag("/frontend/pages/img/cart-img.jpg", :alt => '#{cart_product.product.title}', :width => '37',:height => '34'), admin_product_path(cart_product.product.id)%>
+                 
+                    <span class="cart-content-count">x <%= cart_product.quantity%></span>
+                    <strong><%= link_to cart_product.product.name, admin_product_path(cart_product.product.id) %></strong>
+                  <%     
+                        if cart_product.has_coupon && isValidCoupon %>
+                    <% individual_price = calculate_total(@coupon,cart_product)  %>
+                        <em>$<%=individual_price%></em> 
+                    <%else
+                        individual_price = calculate_total(nil,cart_product)
+                         %>
+                      <em>$<%=individual_price%></em> 
+                    <%end%>
+                    
+                      <%= link_to cart_product_path(cart_product.id), method: :delete, date: {confirm: "Are you sure?"} do %>
+                         
+                          <i class="del-goods"></i>
+                        <% end%>
+                   
+                  
+                </li>
+                  <% end %>
+              </ul>
+              <div class="text-right">
+                  <% cart_products = CartProduct.where("user_id=?",current_user.id) %>
+
+                  <%= link_to "View Cart", cart_products_path, class: "btn btn-default" %>
+                  
+                  <%= link_to "Checkout", new_order_path, class: "btn btn-primary" %>
+                
+              </div>
+            </div>
+              <%else%>
+               <div class="top-cart-content">
+                  <div class="text-right">Cart is empty!</div>
+              </div>
+              <% end%>
+          </div>            
+        </div>
+          <% end %>
+        <!--END CART -->
+
+        <!-- BEGIN NAVIGATION -->
+        
+        <div class="header-navigation">
+          <ul>
+              <%= render "/layouts/frontend_navigation", categories: @categories.roots%>
+            
+              <%= render "/layouts/frontend_navigation_newitems", new_arrivals: @new_arrivals if @new_arrivals.present?%>
+            
+            
+            <!-- BEGIN TOP SEARCH -->
+            <li class="menu-search">
+              <span class="sep"></span>
+              <i class="fa fa-search search-btn"></i>
+              <div class="search-box">
+                <form action="#">
+                  <div class="input-group">
+                    <input type="text" placeholder="Search" class="form-control">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" type="submit">Search</button>
+                    </span>
+                  </div>
+                </form>
+              </div> 
+            </li>
+            <!-- END TOP SEARCH -->
+          </ul>
+        </div>
+        
+        <!-- END NAVIGATION -->
+      </div>
+    </div>
+    <!-- Header END -->
+    <%=render "layouts/message"%>    
+    <%= yield %>
+    
+    
+    <!-- BEGIN PRE-FOOTER -->
+    <div class="pre-footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN BOTTOM ABOUT BLOCK -->
+          <div class="col-md-3 col-sm-6 pre-footer-col">
+            <h2>About us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam sit nonummy nibh euismod tincidunt ut laoreet dolore magna aliquarm erat sit volutpat. Nostrud exerci tation ullamcorper suscipit lobortis nisl aliquip  commodo consequat. </p>
+            <p>Duis autem vel eum iriure dolor vulputate velit esse molestie at dolore.</p>
+          </div>
+          <!-- END BOTTOM ABOUT BLOCK -->
+          <!-- BEGIN BOTTOM INFO BLOCK -->
+          <div class="col-md-3 col-sm-6 pre-footer-col">
+            <h2>Information</h2>
+            <ul class="list-unstyled">
+              <li><i class="fa fa-angle-right"></i> <a href="#">Delivery Information</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Customer Service</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Order Tracking</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Shipping &amp; Returns</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="contacts.html">Contact Us</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Careers</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Payment Methods</a></li>
+            </ul>
+          </div>
+          <!-- END INFO BLOCK -->
+
+          <!-- BEGIN TWITTER BLOCK --> 
+          <div class="col-md-3 col-sm-6 pre-footer-col">
+            <h2 class="margin-bottom-0">Latest Tweets</h2>
+            <a class="twitter-timeline" href="https://twitter.com/twitterapi" data-tweet-limit="2" data-theme="dark" data-link-color="#57C8EB" data-widget-id="455411516829736961" data-chrome="noheader nofooter noscrollbar noborders transparent">Loading tweets by @keenthemes...</a>      
+          </div>
+          <!-- END TWITTER BLOCK -->
+
+          <!-- BEGIN BOTTOM CONTACTS -->
+          <div class="col-md-3 col-sm-6 pre-footer-col">
+            <h2>Our Contacts</h2>
+            <address class="margin-bottom-40">
+              35, Lorem Lis Street, Park Ave<br>
+              California, US<br>
+              Phone: 300 323 3456<br>
+              Fax: 300 323 1456<br>
+              Email: <a href="mailto:info@metronic.com">info@metronic.com</a><br>
+              Skype: <a href="skype:metronic">metronic</a>
+            </address>
+          </div>
+          <!-- END BOTTOM CONTACTS -->
+        </div>
+        <hr>
+        <div class="row">
+          <!-- BEGIN SOCIAL ICONS -->
+          <div class="col-md-6 col-sm-6">
+            <ul class="social-icons">
+              <li><a class="rss" data-original-title="rss" href="#"></a></li>
+              <li><a class="facebook" data-original-title="facebook" href="#"></a></li>
+              <li><a class="twitter" data-original-title="twitter" href="#"></a></li>
+              <li><a class="googleplus" data-original-title="googleplus" href="#"></a></li>
+              <li><a class="linkedin" data-original-title="linkedin" href="#"></a></li>
+              <li><a class="youtube" data-original-title="youtube" href="#"></a></li>
+              <li><a class="vimeo" data-original-title="vimeo" href="#"></a></li>
+              <li><a class="skype" data-original-title="skype" href="#"></a></li>
+            </ul>
+          </div>
+          <!-- END SOCIAL ICONS -->
+          <!-- BEGIN NEWLETTER -->
+          <div class="col-md-6 col-sm-6">
+            <div class="pre-footer-subscribe-box pull-right">
+              <h2>Newsletter</h2>
+              <form action="#">
+                <div class="input-group">
+                  <input type="text" placeholder="youremail@mail.com" class="form-control">
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit">Subscribe</button>
+                  </span>
+                </div>
+              </form>
+            </div> 
+          </div>
+          <!-- END NEWLETTER -->
+        </div>
+      </div>
+    </div>
+    <!-- END PRE-FOOTER -->
+
+    <!-- BEGIN FOOTER -->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN COPYRIGHT -->
+          <div class="col-md-6 col-sm-6 padding-top-10">
+            2014 © Metronic Shop UI. ALL Rights Reserved. 
+          </div>
+          <!-- END COPYRIGHT -->
+          <!-- BEGIN PAYMENTS -->
+          <div class="col-md-6 col-sm-6">
+            <ul class="list-unstyled list-inline pull-right">
+              <li><img src="/frontend/layout/img/payments/western-union.jpg" alt="We accept Western Union" title="We accept Western Union"></li>
+              <li><img src="/frontend/layout/img/payments/american-express.jpg" alt="We accept American Express" title="We accept American Express"></li>
+              <li><img src="/frontend/layout/img/payments/MasterCard.jpg" alt="We accept MasterCard" title="We accept MasterCard"></li>
+              <li><img src="/frontend/layout/img/payments/PayPal.jpg" alt="We accept PayPal" title="We accept PayPal"></li>
+              <li><img src="/frontend/layout/img/payments/visa.jpg" alt="We accept Visa" title="We accept Visa"></li>
+            </ul>
+          </div>
+          <!-- END PAYMENTS -->
+        </div>
+      </div>
+    </div>
+    <!-- END FOOTER -->
+
+   
+    <!-- Load javascripts at bottom, this will reduce page load time -->
+    <!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
+    <!--[if lt IE 9]>
+    <script src="assets/plugins/respond.min.js"></script>  
+    <![endif]-->
+    
+    <script src="/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <script src="/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>      
+    <script src="/frontend/layout/scripts/back-to-top.js" type="text/javascript"></script>
+    <script src="/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+
+    <!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) -->
+    <script src="/global/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script><!-- pop up -->
+    <script src="/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js" type="text/javascript"></script><!-- slider for products -->
+    <script src='/global/plugins/zoom/jquery.zoom.min.js' type="text/javascript"></script><!-- product zoom -->
+    <script src="/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script><!-- Quantity -->
+
+    <!-- BEGIN LayerSlider -->
+    <script src="/global/plugins/slider-layer-slider/js/greensock.js" type="text/javascript"></script><!-- External libraries: GreenSock -->
+    <script src="/global/plugins/slider-layer-slider/js/layerslider.transitions.js" type="text/javascript"></script><!-- LayerSlider script files -->
+    <script src="/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script><!-- LayerSlider script files -->
+    <script src="/frontend/pages/scripts/layerslider-init.js" type="text/javascript"></script>
+    <!-- END LayerSlider -->
+
+    <script src="/frontend/layout/scripts/layout.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            Layout.init();    
+            Layout.initOWL();
+            LayersliderInit.initLayerSlider();
+            Layout.initImageZoom();
+            Layout.initTouchspin();
+            Layout.initTwitter();
+        });
+    </script>
+   
+    <!-- END PAGE LEVEL JAVASCRIPTS -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+</body>
+<!-- END BODY -->
+</html>

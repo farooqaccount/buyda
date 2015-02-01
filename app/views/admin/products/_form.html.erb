@@ -1,0 +1,96 @@
+<%= simple_form_for @product, :url => admin_products_path, :html => { :class => "well form-horizontal admin_product_path" } do |f| %>
+
+<%= f.input :name%>
+<%= f.input :description%>
+<%= f.input :price%>
+<%= f.input :title%>
+<%= f.association :manufacturer%>
+<%= f.association :category%>
+<%= f.input :in_stock, collection: %w{Yes No}%>
+<%= f.input :reduce_stock, as: :boolean%>
+<%= f.input :quantity%>
+<%= f.input :require_shipping, collection: %w{Yes No}%>
+
+<%= f.input :manufactuering_date, :as => :string, :input_html => {:class => 'jquery-ui-date col-span-3', :id => 'manufaturing-date'} %>
+<%=f.input :manufactuering_date, :as => :hidden, :input_html => { :id => 'manufactuering-date-alt'}%>
+<%= f.input :active_from, :as => :string, :input_html => {:id => 'datetimepicker'} %><i id= "image_button" class="fa fa-calendar"></i>
+
+
+
+<!--<div class="well">
+  <div id="datetimepicker2" class="input-append">
+    <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input>
+    <span class="add-on">
+     <i class="fa fa-calendar"></i>
+    </span>
+  </div>
+</div>-->
+
+
+
+ <!--<div class="field">
+	
+    <%#= hidden_field_tag "product[category_ids][]",nil%>
+	<%# Category.all.each do |category|%>
+		<%#= check_box_tag "product[category_ids][]",category.id,@product.category_ids.include?(category.id), id: dom_id(category) %>
+		<%#= label_tag dom_id(category), product_name%><br/>
+	<%# end %>
+    
+</div>-->
+    
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span8 well">
+            <ul class="nav nav-tabs">
+                    <li class="active"> <a href="#general" data-target="#general" data-toggle="tab">General</a>
+
+                </li>
+                            <li><a href="#data" data-target="#data" data-toggle="tab">Data</a>
+
+                </li>
+                <li><a href="#links" data-target="#links" data-toggle="tab">Links</a>
+
+                </li>
+                            <li><a href="#attribute" data-target="#attribute" data-toggle="tab">Attribute</a>
+
+                </li>
+                  <li><a href="#option" data-target="#option" data-toggle="tab">Option</a>
+
+                </li>
+                            <li><a href="#discount" data-target="#discount" data-toggle="tab">Discount</a>
+
+                </li>
+                            <li><a href="#special" data-target="#special" data-toggle="tab">Special</a>
+
+                </li>
+                            <li><a href="#image" data-target="#image" data-toggle="tab">Image</a>
+
+                </li>
+                            <li><a href="#rewardPoints" data-target="#rewardPoints" data-toggle="tab">Reward Points</a>
+
+                </li>
+                            <li><a href="#design" data-target="#design" data-toggle="tab">Design</a>
+
+                </li>
+            </ul>
+            <div class="tab-content">
+                    <div class="tab-pane active fade in" id="general">general tab content</div>
+                    <div class="tab-pane" id="data">data tab content</div>
+                    <div class="tab-pane" id="links">links tab content</div>
+                    <div class="tab-pane" id="attribute">attribute tab content</div>
+                    <div class="tab-pane" id="option">option tab content</div>
+                    <div class="tab-pane" id="discount">discount tab content</div>
+                    <div class="tab-pane" id="special">special tab content</div>
+                    <div class="tab-pane" id="image">image tab content</div>
+                    <div class="tab-pane" id="rewardPoints">Reward Points tab content</div>
+                    <div class="tab-pane" id="design">design tab content</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                        admin_products_path, :class => 'btn btn-default' %>
+
+<% end %>

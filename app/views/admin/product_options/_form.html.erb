@@ -1,0 +1,19 @@
+<%= simple_nested_form_for @product_option, :html => {:class => 'form-horizontal'} do |f|%>
+
+<fieldset>
+    <%= f.input :name, label: 'Option Name' %>
+    <%= f.input :option_type,collection: [["Choose",{:style => "font-weight: Bold; text-align: left"}], ["Select", {:style => "text-align: left"}], ["Radio", {:style => "text-align: left"}], ["Checkbox", {:style => "text-align: left"}], ["Image", {:style => "text-align: left"}], ["Input", {:style => "font-weight: Bold; text-align: left"}], ["Text",{:style => "text-align: left"}], ["Text Area",{:style => "text-align: left"}], ["File",{:style => "font-weight: Bold; text-align: left"}],["File",{:style => "text-align: left"}], ["Date",{:style => "font-weight: Bold; text-align: left"}], ["Date",{:style => "text-align: left"}],["Time",{:style => "text-align: left"}],["Date & Time",{:style => "text-align: left"}]], prompt: "Select your option type" %>
+    <%= f.input :sort_order%>
+    <%= f.simple_fields_for :product_option_values do |value_form| %>
+        <%= value_form.input :name, label: 'Option Value Name'%>
+        <%= value_form.input :sort_order, label: 'Option Value Sort Order'%>
+        <%= value_form.link_to_remove "Remove" %>
+    <% end %>
+    <%= f.link_to_add "Add a option value", :product_option_values %>
+
+<div class="form-actions">
+    <%= f.submit nil, :class => "btn btn-primary"%>
+    <%= link_to "Cancel",product_options_path, :class => "btn"%>
+</div>
+<% end %>
+</fieldset>

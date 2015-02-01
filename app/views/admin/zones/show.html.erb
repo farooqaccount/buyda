@@ -1,0 +1,7 @@
+<h3><%= @zone.name %></h3> in <small><%= @zone.country.name%></small><br />
+
+<p> <strong>Zone Code:</strong> <%= @zone.code%></p>
+<p> <strong>Status:</strong> <%= @zone.status%></p>
+    
+<p><%= link_to "All Zones", zones_path%> | <%= link_to "Edit Zone", edit_zone_path(@zone.id)%>
+    | <%= link_to "Delete Zone", zone_path(@zone.id), method: :delete, data: {confirm: "Are you sure?"} %></p>

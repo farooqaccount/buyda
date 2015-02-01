@@ -1,0 +1,22 @@
+<h1> List of Weight Classes </h1>
+
+<table border="1">
+    <tr>
+        <th>Weight Title</th>
+        <th>Weight Unit</th>
+        <th>Value</th>
+        <th>Action</th>
+        
+    </tr>
+    <%@weight_classes.each do |weight_class|%>
+        <tr>
+            <td><%= weight_class.title %></td>
+            <td><%= weight_class.unit %></td>
+            <td><%= weight_class.value %></td>
+            <td><%= link_to "Show", weight_class_path(weight_class.id)%> |
+            <%= link_to "Edit", edit_weight_class_path(weight_class.id)%> |
+            <%= link_to "Delete", weight_class_path(weight_class.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add weight class", new_weight_class_path %>

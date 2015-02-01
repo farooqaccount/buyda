@@ -1,0 +1,49 @@
+<%= nested_form_for @manufacturer, :html => {:class => 'form-horizontal'} do |f|%>
+
+<% if @manufacturer.errors.any? %>
+    <h4> Below error prohibited the manufacturer to save </h4>
+    <ul>
+        <% @manufacturer.errors.full_messages.each do |msg|%>
+        <li><%= msg%></li>
+        <% end %>
+    </ul>
+<% end %>
+<label> Manufacturer Name: </label><br />
+<%= f.text_field :name%><br />
+
+<label> POC: </label><br />
+<%= f.text_field :poc%><br />
+
+<label>Website:</label><br />
+<%= f.text_field :website%><br />
+
+<%= f.fields_for :manufacturer_products, :html => {:class => 'form-horizontal'} do |product_form| %>
+        <%= f.label :name, "Product Name" %>
+        <%= product_form.text_field :name%>
+        <%= f.label :name, "Product Description" %>
+        <%= product_form.text_area :description%>   
+        <%= f.label :name, "Product Price" %>
+        <%= product_form.text_field :price%>
+        <%= f.label :name, "Product Title" %>
+        <%= product_form.text_field :title%>
+        <%= f.label :name, "Product Category" %>
+        <%= product_form.collection_select :category_id,Category.all,:id,:name,:prompt => "Select Category" %>
+        <%= f.label :name, "In Stock ?" %>
+        <%= product_form.select :in_stock, %w{Yes No}%>
+        <%= f.label :name, "Reduce Stock ?" %>
+        <%= product_form.check_box :reduce_stock%>
+        <%= f.label :name, "Require Shipping ?" %>
+        <%= product_form.select :require_shipping, collection: %w{Yes No}%>
+        <%= f.label :name, "Product Manufacturing Date" %>
+<%= product_form.date_select :manufactuering_date %>
+        <!--<%=product_form.hidden_field :manufactuering_date, :input_html => { :id => 'manufactuering-date-alt'}%>-->
+        <%= f.label :name, "Product Active From" %>
+<%= product_form.datetime_select :active_from %>
+        <%= product_form.link_to_remove "Remove" %>
+    <% end %>
+<%= f.link_to_add "Add a products", :manufacturer_products %>
+<div class="form-actions">
+    <%= f.submit nil, :class => "btn btn-primary"%>
+    <%= link_to "Cancel",manufacturers_path, :class => "btn"%>
+</div>
+<% end %>

@@ -1,0 +1,14 @@
+<ul class="list-group margin-bottom-25 sidebar-menu">
+    
+    
+    <% if current_user %>
+    <li class="list-group-item clearfix"><a href="#"><i class="fa fa-angle-right"></i> Restore Password</a></li>
+    <li class="list-group-item clearfix"><i class="fa fa-angle-right"></i> <%= link_to "My Account", pages_my_account_path %></li>
+    <li class="list-group-item clearfix"><a href="#"><i class="fa fa-angle-right"></i> Address book</a></li>
+    <li class="list-group-item clearfix"><a href="#"><i class="fa fa-angle-right"></i> Wish list</a></li>
+    <li class="list-group-item clearfix"><a href="#"><i class="fa fa-angle-right"></i> Returns</a></li>
+    <li class="list-group-item clearfix"><a href="#"><i class="fa fa-angle-right"></i> Newsletter</a></li>
+    <% else %>
+    <li class="list-group-item clearfix"><i class="fa fa-angle-right"></i><%= link_to "Register / Signup", new_user_registration_path %></li>
+    <% end %>
+</ul>

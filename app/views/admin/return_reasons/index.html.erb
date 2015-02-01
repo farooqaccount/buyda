@@ -1,0 +1,17 @@
+<h1> List of Return Reason </h1>
+
+<table border="1">
+    <tr>
+        <th>Return Reason Name</th>
+        <th> Action </th>
+        
+    </tr>
+    <%@return_reasons.each do |return_reason|%>
+        <tr>
+            <td><%= return_reason.name %></td>
+            <td><%= link_to "Show", return_reason_path(return_reason.id)%> | <%= link_to "Edit", edit_return_reason_path(return_reason.id)%> | <%= link_to "Delete", return_reason_path(return_reason.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+            
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add Return Reason", new_return_reason_path %>

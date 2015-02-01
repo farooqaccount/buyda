@@ -1,0 +1,15 @@
+<%= form_for @return_reason do |f|%>
+
+<% if @return_reason.errors.any?%>
+     <h4> Below error prohibited the return reason to save </h4>
+    <ul>
+        <% @return_reason.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label> Return Reason Name:</label><br />
+<%= f.text_field :name%><br />
+
+<%= f.submit%>
+<% end %>

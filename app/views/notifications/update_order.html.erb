@@ -1,0 +1,150 @@
+<%= @greeting%>
+
+Thank you for placing the order with us. Your order details are updated and as follows:
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12 well">
+            <ul class="nav nav-tabs">
+                    <li class="active"> <a href="#order_details" data-target="#order_details" data-toggle="tab">Order Details</a>
+
+                </li>
+                            <li><a href="#payment_details" data-target="#payment_details" data-toggle="tab">Billing Details</a>
+
+                </li>
+                <li><a href="#shipping_details" data-target="#shipping_details" data-toggle="tab">Shipping Details</a>
+
+                </li>
+                            <li><a href="#products" data-target="#products" data-toggle="tab">Products</a>
+
+                </li>
+                  <li><a href="#order_history" data-target="#order_history" data-toggle="tab">Order History</a>
+
+                </li>
+                            
+            </ul>
+            <div class="tab-content">
+                    <div class="tab-pane active fade in" id="order_details">Order Details
+                       <table id="orders" class="table table-bordered">
+                          <tbody>
+                              <tr>
+                                  <td> Order ID</td>
+                                  <td><%=@order.id%></td>
+                              </tr>
+                              <tr>
+                                  <td> Customer</td>
+                                  <td><%=@order.user.user_name%></td>
+                              </tr>
+                              <tr>
+                                  <td> Email</td>
+                                  <td><%=@order.user.email%></td>
+                              </tr>
+                              <tr>
+                                  <td> Total</td>
+                                  <td><%=@order.discounted_total%></td>
+                              </tr>
+                              <tr>
+                                  <td> Order Status</td>
+                                  <td><%=@order.order_histories.last.order_status.name%></td>
+                              </tr>
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="tab-pane" id="payment_details">Billing Details
+                        <table id="orders" class="table table-bordered">
+                          <tbody>
+                              <tr>
+                                  <td> Name</td>
+                                  <td><%=@order.name%></td>
+                              </tr>
+                              <tr>
+                                  <td> Address</td>
+                                  <td><%=@order.address%></td>
+                              </tr>
+                              <tr>
+                                  <td> Payment Type</td>
+                                  <td><%=@order.payment_type%></td>
+                              </tr>
+                              
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="tab-pane" id="shipping_details">Shipping Details
+                        <table id="orders" class="table table-bordered">
+                          <tbody>
+                              <tr>
+                                  <td> Shipping Name</td>
+                                  <td><%= !@order.order_shipping_detail.nil? ? @order.order_shipping_detail.name : ""%></td>
+                              </tr>
+                              <tr>
+                                  <td> Shipping Address</td>
+                                  <td><%= !@order.order_shipping_detail.nil? ? @order.order_shipping_detail.address : ""%></td>
+                              </tr>
+                              <tr>
+                                  <td> Shipping Zip</td>
+                                  <td><%= !@order.order_shipping_detail.nil? ? @order.order_shipping_detail.zip_code : ""%></td>
+                              </tr>
+                              
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="tab-pane" id="products">Products
+                        <table id="orders" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Total</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @order.order_products.each do |order_product| %>
+                                <tr>
+                                    <td><%= order_product.product.name %></td>
+                                    <td><%= order_product.quantity %></td>
+                                    <td><%= order_product.product.price %></td>
+                                    <td><%= order_product.discounted_price %></td>
+                                    
+                                </tr>
+                                
+                                <% end %>
+                                <tr>
+                                    <td colspan="3" style="align:right">sub-total</td>
+                                    <td><%= @order.discounted_total %></td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="order_history">Order History
+                
+                    <table id="orders" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Date Added</th>
+                                    <th>Status</th>
+                                                                      
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                    <td><%= @order.order_histories.last.created_at %></td>
+                                    <td><%= @order.order_histories.last.order_status.name %></td>
+                                   
+                                    
+                                </tr>
+                                
+                                
+                               
+                            </tbody>
+                        </table>
+                    
+            </div>
+        </div>
+    </div>
+</div>
+
+

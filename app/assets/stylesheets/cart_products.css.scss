@@ -1,0 +1,25 @@
+.purr {
+  position: fixed;
+  top: 30px;
+  right: 100px;
+  width: 250px;
+  padding: 20px;
+  background-color: #FCC;
+  border: solid 2px #C66;
+  //&:first-letter { text-transform: uppercase; }
+}
+
+.panel-default > .panel-heading {
+    background-color: #d5d5d5;
+}
+
+div[class$="_pagination"] {
+    margin: 1.5em 0;
+}
+.apple_pagination {
+    background: none repeat scroll 0 0 #f1f1f1;
+    border: 1px solid #e5e5e5;
+    cursor: default;
+    padding: 1em;
+    text-align: center;
+}

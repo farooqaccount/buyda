@@ -1,0 +1,56 @@
+<h2><%=@manufacturer.name%></h2>
+
+<p><strong>Manufacturer POC:</strong> <%=@manufacturer.poc%></p>
+<p><strong>Manufacturer Website:</strong> <%=@manufacturer.website%></p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-name">
+                        <i class="fa fa-table"></i>
+                        <span>Manufacturer Products</span>
+                    </div>
+                    <div class="box-icons">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="expand-link">
+                            <i class="fa fa-expand"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                    <div class="no-move"></div>
+                </div>
+                <div class="box-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Product Price</th>
+                                <th>Product Category</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @manufacturer_products.each do |manufacturer_product|%>
+                            <tr>
+                                <td><%= manufacturer_product.name%></td>
+                                <td><%= manufacturer_product.price%></td>
+                                <td><%= manufacturer_product.category.name%></td>
+                                 
+                            </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p><%= link_to "All manufacturers", manufacturers_path %> | <%= link_to "Edit", edit_manufacturer_path(@manufacturer.id)%> | <%= link_to "Delete", manufacturer_path(@manufacturer.id), method: :delete, data: {confirm: "Are you sure?"}%>
+    

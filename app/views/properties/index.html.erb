@@ -1,0 +1,25 @@
+<h1> List of properties </h1>
+
+<table border="1">
+    <tr>
+        <th>Property Code</th>
+        <th>Land Lord</th>
+        <th>Lease Start Date</th>
+        <th>Lease End Date</th>
+        <th>Lessee</th>
+        <th> Action </th>
+        
+    </tr>
+    <%@properties.each do |property|%>
+        <tr>
+            <td><%= property.property_code %></td>
+            <td><%= property.land_lord.user_name %></td>
+            <td><%= property.lease_start_date %></td>
+            <td><%= property.lease_end_date %></td>
+            <td><%= property.user.user_name %></td>
+            <td><%= link_to "Show", property_path(property.id)%> | <%= link_to "Edit", edit_property_path(property.id)%> | <%= link_to "Delete", property_path(property.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+            
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add Property", new_property_path %>

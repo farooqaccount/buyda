@@ -1,0 +1,80 @@
+<% content_for :title, "Wishlist" %> 
+<div class="main">
+      <div class="container">
+        
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+          <!-- BEGIN SIDEBAR -->
+          <div class="sidebar col-md-3 col-sm-5">
+            <ul class="list-group margin-bottom-25 sidebar-menu">
+               <%= render 'layouts/shared/left_navigation', categories: @categories.roots %>
+            </ul>
+          </div>
+          <!-- END SIDEBAR -->
+
+          <!-- BEGIN CONTENT -->
+          <div class="col-md-9 col-sm-7">
+            <h1>My Wish List</h1>
+            <div class="goods-page">
+              <div class="goods-data clearfix">
+                <div class="table-wrapper-responsive">
+                <table summary="Shopping cart">
+                    <% if @wishlist_items.count > 0 %>
+                  <tr>
+                    <th class="goods-page-image">Image</th>
+                    <th class="goods-page-description">Description</th>
+                    <th class="goods-page-stock">Stock</th>
+                    <th class="goods-page-price" colspan="2">Unit price</th>
+                  </tr>
+                    
+                    <% @wishlist_items.each do |wishlist_item|%>
+                  <tr>
+                    <td class="goods-page-image">
+                                            <%=link_to image_tag("/frontend/pages/img/products/model3.jpg", :alt => '#{wishlist_item.product.title}'), product_path(wishlist_item.product.id)%>
+                      
+                    </td>
+                    <td class="goods-page-description">
+                        <h3><%=link_to wishlist_item.product.name, wishlist_item.product%></h3>
+                      <p><strong>Item 1</strong> - Color: Green; Size: S</p>
+                      <em>More info is here</em>
+                    </td>
+                    <td class="goods-page-stock">
+                        <%= wishlist_item.product.in_stock == "Yes" ? "In Stock" : "Out Of Stock"%>
+                    </td>
+                    <td class="goods-page-price">
+                        <strong><span>$</span><%=wishlist_item.product.price%></strong>
+                    </td>
+                    <td class="del-goods-col">
+                        <%= link_to wishlist_path(wishlist_item.id), method: :delete, date: {confirm: "Are you sure?"} do %>
+                         
+                          <i class="del-goods"></i>
+                        <% end%>
+<!--                         <%= form_tag cart_products_path(product_id: wishlist_item.product.id,price: wishlist_item.product.price), :method => 'get' do %> -->
+                        
+<!--                         <%= button_tag(type: 'submit', :name => "AddToCart") do %> -->
+<!--  <i class="add-goods"></i> -->
+<!-- <% end %> -->
+<!--                         <% end %> -->
+                   <%= button_to "Add to cart", cart_products_path(product_id: wishlist_item.product.id,price: wishlist_item.product.price, wishlist_item: wishlist_item.id), :name => "AddToCart", :class => "btn btn-primary"%>
+<!--                       <%= my_button_to '<i class="add-goods"></i>', cart_products_path(product_id: wishlist_item.product.id,price: wishlist_item.product.price), :name => "AddToCart" %>  -->
+                        
+                    </td>
+                  </tr>
+                    <% end %>
+                    <% else %>
+                    <tr><td> There are no products in your wishlist </td></tr>
+                    <% end %>
+                    <tr><td><%= link_to pages_home_path, class: "btn btn-default" do%>
+                    Continue Shopping &nbsp;<i class="fa fa-shopping-cart">
+                        <% end %></td></tr>
+                </table>
+                    
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END CONTENT -->
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+      </div>
+    </div>

@@ -1,0 +1,3 @@
+class UserCart < Cart
+    
+end

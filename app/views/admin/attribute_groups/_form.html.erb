@@ -1,0 +1,18 @@
+<%= form_for @attribute_group do |f|%>
+
+<% if @attribute_group.errors.any?%>
+     <h4> Below error prohibited the attribute group to save </h4>
+    <ul>
+        <% @attribute_group.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label>Attribute Group Name:</label><br />
+<%= f.text_field :name%><br />
+
+<label>Sort Order:</label><br />
+<%= f.text_field :sort_order%><br />
+
+<%= f.submit%>
+<% end %>

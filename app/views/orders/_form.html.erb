@@ -1,0 +1,321 @@
+<% content_for :title, "Checkout" %> 
+<%= form_for @order do |f|%>
+<div class="main">
+      <div class="container">
+        
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+          <!-- BEGIN CONTENT -->
+          <div class="col-md-12 col-sm-12">
+            <h1>Checkout</h1>
+            <!-- BEGIN CHECKOUT PAGE -->
+            <div class="panel-group checkout-page accordion scrollable" id="checkout-page">
+              <% if current_user.nil? %>
+              <!-- BEGIN CHECKOUT -->
+              <div id="checkout" class="panel panel-default">
+                <div class="panel-heading">
+                  <h2 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#checkout-page" href="#checkout-content" class="accordion-toggle">
+                      Checkout Options
+                    </a>
+                  </h2>
+                </div>
+                <div id="checkout-content" class="panel-collapse collapse in">
+                  <div class="panel-body row">
+                    <div class="col-md-6 col-sm-6">
+                      <h3>New Customer</h3>
+                      <p>Checkout Options:</p>
+                      <div class="radio-list">
+                        <label>
+                          <input type="radio" name="account"  value="register"> Register Account
+                        </label>
+                        
+                      </div>
+                      <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
+                      
+                        <%= link_to "Continue", new_user_registration_path, class: "btn btn-primary", :data => {:toggle => "collapse",:parent => "#checkout-page",:target => "#payment-address-content"} %>
+                       
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <% if current_user.errors.any?%>
+                    <ul>
+                    <% current_user.errors.full_messages.each do |msg|%>
+                        <li><%= msg %></li>
+                    <% end %>
+                    </ul>
+                  <% end %>
+                  
+                      <h3>Returning Customer</h3>
+                      <p>I am a returning customer.</p>
+                        <%= f.fields_for :user do |user| %>
+                        <div class="form-group">
+                          <label for="email-login">Username / Email</label>
+                            <%= user.text_field :login, autofocus: true,id: "email", class: "form-control", :placeholder => 'Username OR Email' %>
+                        </div>
+                        <div class="form-group">
+                          <label for="password-login">Password</label>
+                            <%= user.password_field :password, autocomplete: "off",id: "password", class: "form-control", :placeholder => 'Password' %>
+                        </div>
+                        <% if devise_mapping.rememberable? %>
+                        
+                          <div class="form-group">
+                              <%= user.check_box :remember_me %> Remember me
+                           </div>
+                        
+                      <% end %>
+                        <% if devise_mapping.recoverable? %>
+                        <%= link_to "Forgot Password?", new_user_registration_path %>
+                        <% end %>
+                        
+                       
+                        <div class="padding-top-20">                  
+                            <%= user.submit "LOGIN", class: "btn btn-primary"%>
+                        </div>
+                        <hr>
+                        <div class="login-socio">
+                          <p class="text-muted">or login using:</p>
+                          <ul class="social-icons">
+                            <li><a href="#" data-original-title="facebook" class="facebook" title="facebook"></a></li>
+                            <li><a href="#" data-original-title="Twitter" class="twitter" title="Twitter"></a></li>
+                            <li><a href="#" data-original-title="Google Plus" class="googleplus" title="Google Plus"></a></li>
+                            <li><a href="#" data-original-title="Linkedin" class="linkedin" title="LinkedIn"></a></li>
+                          </ul>
+                        </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <% end %>
+              <!-- END CHECKOUT -->
+              <% end %>
+
+              <!-- BEGIN PAYMENT ADDRESS -->
+              <div id="payment-address" class="panel panel-default">
+                <div class="panel-heading">
+                  <h2 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#checkout-page" href="#payment-address-content" class="accordion-toggle">
+                      Account &amp; Billing Details
+                    </a>
+                  </h2>
+                </div>
+                <div id="payment-address-content" class="panel-collapse collapse">
+                  <div class="panel-body row">
+                    <div class="col-md-6 col-sm-6">
+                      <h3>Your Billing Details</h3>
+                      <div class="form-group">
+                        <label for="firstname">Billing Name <span class="require">*</span></label>
+                        <%= f.text_field :name, :class => "form-control"%>
+                      </div>
+                      <div class="form-group">
+                        <label for="lastname">Billing Address <span class="require">*</span></label>
+                        <%= f.text_area :address, :class => "form-control"%>
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Payment Type <span class="require">*</span></label>
+                        <%= f.select :payment_type, options_for_select([['Credit Card', 'CreditCard'], ['Debit Card', 'DebitCard'], ['Cash On Delivery', 'COD']]), :class => "form-control input-sm"%>
+                          
+                      </div>
+                      
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                      <h3>Credit Card Details</h3>
+                      <div class="form-group">
+                        <label for="card_type">Card Type <span class="require">*</span></label>
+                        <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], :class => "form-control", :id => "card_type" %>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="card_number">Card Number <span class="require">*</span></label>
+                        <%= f.text_field :card_number, :class => "form-control", :id => "card_number"%>
+                      </div>
+                      <div class="form-group">
+                        <label for="card_verification">Card Verification Value (CVV) <span class="require">*</span></label>
+                        <%= f.text_field :card_verification, :class => "form-control", :id => "card_verification"%>
+                      </div>
+                      <div class="form-group">
+                        <label for="card_expires">Card Expires On <span class="require">*</span></label>
+                        <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true, :id => "card_expires"%>
+                      </div>
+                      <div class="form-group">
+                        <label for="first_name">First Name <span class="require">*</span></label>
+                          <%= f.text_field :first_name, :class => "form-control", :id => "first_name" %>
+                      </div>
+                      <div class="form-group">
+                        <label for="last_name">Last Name <span class="require">*</span></label>
+                       <%= f.text_field :last_name, :class => "form-control", :id => "last_name"%>
+                      </div>
+                    </div>
+                    <hr>
+                    
+                  </div>
+                </div>
+              </div>
+              <!-- END PAYMENT ADDRESS -->
+
+              <!-- BEGIN SHIPPING ADDRESS -->
+              <div id="shipping-address" class="panel panel-default">
+                <div class="panel-heading">
+                  <h2 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#checkout-page" href="#shipping-address-content" class="accordion-toggle">
+                      Delivery Details
+                    </a>
+                  </h2>
+                </div>
+                <div id="shipping-address-content" class="panel-collapse collapse">
+                  <div class="panel-body row">
+                      <%= f.fields_for :order_shipping_detail do |order_shipping| %>
+                    <div class="col-md-6 col-sm-6">
+                      <div class="form-group">
+                        <label for="firstname-dd"> Name <span class="require">*</span></label>
+                        <%= order_shipping.text_field :name, :class => "form-control"%>
+                      </div>
+                      <div class="form-group">
+                        <label for="lastname-dd">Address <span class="require">*</span></label>
+                        <%= order_shipping.text_area :address, :class => "form-control"%>
+                      </div>
+                      <div class="form-group">
+                        <label for="email-dd">Zip Code <span class="require">*</span></label>
+                        <%= order_shipping.text_field :zip_code, :class => "form-control"%>
+                      </div>
+                      
+                    </div>
+                    
+                      <% end %>
+                  </div>
+                </div>
+              </div>
+              <!-- END SHIPPING ADDRESS -->
+
+              <!-- BEGIN CONFIRM -->
+              <div id="confirm" class="panel panel-default">
+                <div class="panel-heading">
+                  <h2 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#checkout-page" href="#confirm-content" class="accordion-toggle">
+                      Confirm Order
+                    </a>
+                  </h2>
+                </div>
+                <div id="confirm-content" class="panel-collapse collapse">
+                  <div class="panel-body row">
+                    <div class="col-md-12 clearfix">
+                      <div class="table-wrapper-responsive">
+                      <table>
+                        <tr>
+                          <th class="checkout-image">Image</th>
+                          <th class="checkout-description">Description</th>
+                          <th class="checkout-model">Model</th>
+                          <th class="checkout-quantity">Quantity</th>
+                          <th class="checkout-price">Price</th>
+                          <th class="checkout-total">Total</th>
+                        </tr>
+                          <% 
+                    actual_price = 0
+                    total_price = 0
+                    discount_price = 0
+                    tot_price = calculate_total_price(get_cart_products)
+                     if !session[:coupon].nil?
+                         coupon = find_by_coupon_code(session[:coupon])
+                     end
+                        
+                        if !coupon.nil?
+                            isValidCoupon = validate_coupon(get_cart_products,coupon, session,tot_price) 
+                        else
+                            isValidCoupon = false
+                        end
+
+                    get_cart_products.each_with_index do |cart_product,index|%>
+                    <% session[:product_id]= cart_product.product.id %>
+                  <tr>
+                    <td class="goods-page-image">
+                      <a href="#"><img src="/frontend/pages/img/products/model3.jpg" alt="Berry Lace Dress"></a>
+                    </td>
+                    <td class="goods-page-description">
+                      <h3><a href="#"><%=cart_product.product.name %></a></h3>
+                        <p><strong>Item <%=index+1%></strong> - Color: Green; Size: S</p>
+                        <em><%= cart_product.product.description%></em>
+                    </td>
+                    
+                     <td class="goods-page-description">
+                     
+                    </td>
+                    
+                    <td class="goods-page-quantity">
+                      <%= best_in_place cart_product, :quantity %>
+                    </td>
+                    <% 
+                        individual_price = calculate_total(nil,cart_product)
+                       actual_price += individual_price 
+                    %>
+                    <td class="goods-page-price">
+                      <strong><span>$</span><%= individual_price %></strong>
+                    </td>
+                      <% 
+                       
+                        
+                        if cart_product.has_coupon && isValidCoupon %>
+                      <% individual_price = calculate_total(coupon,cart_product)  %>
+                    <td class="goods-page-total">
+                      <strong><span>$</span><%=individual_price%></strong>
+                    </td>
+                    <% total_price += individual_price %> 
+                    <%else
+                        individual_price = calculate_total(nil,cart_product)
+                        total_price += individual_price %>
+                      <td class="goods-page-total">
+                      <strong><span>$</span><%=individual_price%></strong>
+                    </td>
+                    <%end%>
+                    
+                  </tr>
+                 <% end %>
+                        
+                      </table>
+                      </div>
+                      <div class="checkout-total-block">
+                        <ul>
+                          <li>
+                            <em>Sub total</em>
+                            <strong class="price"><span>$</span><%= total_price %></strong>
+                          </li>
+                          <li>
+                            <em>Saving</em>
+                             <strong class="price"><%= actual_price > total_price ? "$#{actual_price - total_price}" : "--"%></strong>
+                          </li>
+                          <li>
+                            <em>Shipping cost</em>
+                            <strong class="price"><span>$</span>3.00</strong>
+                          </li>
+                          <li>
+                            <em>Eco Tax (-2.00)</em>
+                            <strong class="price"><span>$</span>3.00</strong>
+                          </li>
+                          <li>
+                            <em>VAT (17.5%)</em>
+                            <strong class="price"><span>$</span>3.00</strong>
+                          </li>
+                          <li class="checkout-total-price">
+                            <em>Total</em>
+                             <strong class="price"><span>$</span><%= grand_total = discount_price > 0 && discount_price.present? ? total_price-discount_price : total_price %></strong>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="clearfix"></div>
+                      <%= f.hidden_field :cart_id, :value => session[:cart_id]%>
+                        <%= f.submit "Confirm Order", :class => "btn btn-primary pull-right", :id => "button-confirm" %>
+                      <%= link_to "Cancel",cart_products_path, :class => "btn btn-default pull-right margin-right-20"%>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- END CONFIRM -->
+            </div>
+            <!-- END CHECKOUT PAGE -->
+          </div>
+          <!-- END CONTENT -->
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+      </div>
+    </div>
+<%end%>

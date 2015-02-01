@@ -1,0 +1,17 @@
+<ul class="list-group margin-bottom-25 sidebar-menu">
+    <% categories.roots.each do |category| 
+    is_active = ""
+    if @category.present? && @category.root == category
+        is_active = "active"
+    else
+        is_active = "collapsed"
+    end
+    %>
+  <li class="list-group-item clearfix <%=is_active%>">
+      <i class="fa fa-angle-right"></i><%= link_to_unless_current category.name, admin_category_path%>
+      <%= render "layouts/shared/left_navigation_sub_menu", sub_categories: category.children if category.children.present? %><i class="fa fa-angle-down"></i>
+      
+  </li>
+  <% end %>
+</ul>
+

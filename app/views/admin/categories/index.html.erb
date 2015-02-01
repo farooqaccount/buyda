@@ -1,0 +1,26 @@
+<h1> List of Categories </h1>
+
+<table border="1">
+    <tr>
+        <th>Category Name</th>
+        <th>Parent</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <%@categories.each do |category|%>
+        <tr>
+            <td><%= category.name %></td>
+            <td> <% 
+            
+            category.ancestors.each_with_index do |cat,index| %>
+                <%= cat.name %> &gt;
+   
+          <% end %></td>
+            <td><%= link_to "Show", category_path(category.id)%></td>
+            <td><%= link_to "Edit", edit_category_path(category.id)%></td>
+            <td><%= link_to "Delete", category_path(category.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add category", new_category_path %>

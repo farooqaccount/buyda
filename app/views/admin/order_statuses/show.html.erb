@@ -1,0 +1,7 @@
+<h3><%= @order_status.name %></h3><br />
+
+<p> <strong>Is Default?:</strong> <%= @order_status.is_default ? "Yes" : "No"%></p>
+<p> <strong>Send Email?</strong> <%= @order_status.send_email ? "Yes" : "No"%></p>
+
+<p><%= link_to "All Order Statuses", order_statuses_path%> | <%= link_to "Edit order status", edit_order_status_path(@order_status.id)%>
+    | <%= link_to "Delete order status", order_status_path(@order_status.id), method: :delete, data: {confirm: "Are you sure?"} %></p>

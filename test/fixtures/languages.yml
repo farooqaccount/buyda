@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 
+  code: 
+  locale: 
+  directory: 
+  filename: 
+  sort_order: 
+  status: 
+
+two:
+  name: 
+  code: 
+  locale: 
+  directory: 
+  filename: 
+  sort_order: 
+  status: 

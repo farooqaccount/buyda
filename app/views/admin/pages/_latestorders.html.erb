@@ -1,0 +1,28 @@
+<%if !@latest_orders.nil? && @latest_orders.count > 0%>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th> Customer </th>
+            <th>Order Status</th>
+            <th>Created at</th>
+            <th>Amount</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+<% @latest_orders.each do |order|%>
+    <tr>
+        <td><%= order.id%></td> 
+        <td><%= order.user.user_name%></td>
+        <td><%= order.order_status.name%></td>
+        <td><%= order.created_at.strftime("%B %d %Y")%></td>
+        <td><%= order.discounted_total%></td>
+        <td><%= link_to "Show", order_path(order.id)%></td>
+        </tr>    
+<% end %>
+    </tbody>
+</table>
+<% end %>
+
+

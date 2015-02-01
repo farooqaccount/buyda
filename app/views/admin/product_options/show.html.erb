@@ -1,0 +1,35 @@
+<%- model_class = ProductOption -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+      <dt><strong> Option Name :</strong></dt>
+          <dd><%= @product_option.name %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:option_type) %>:</strong></dt>
+          <dd><%= @product_option.option_type %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:sort_order) %>:</strong></dt>
+          <dd><%= @product_option.sort_order %></dd>
+
+</dl>
+
+<% if !@product_option.product_option_values.nil? %>
+<dl class="dl-horizontal">
+    <% @product_option.product_option_values.each do |values|%>
+    <dt><strong>Option Value Name :</strong></dt>
+          <dd><%= values.name %></dd>
+    <dt><strong>Sort Order :</strong></dt>
+         <dd><%= values.sort_order %></dd>
+    <% end %>
+</dl>
+<% end %>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              product_options_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_product_option_path(@product_option), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              product_option_path(@product_option),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

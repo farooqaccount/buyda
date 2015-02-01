@@ -1,0 +1,19 @@
+<h1> List of Order Statuses </h1>
+
+<table border="1">
+    <tr>
+        <th>Order Status</th>
+        <th>Send Email</th>
+        <th> Action </th>
+        
+    </tr>
+    <%@order_statuses.each do |order_status|%>
+        <tr>
+            <td><%= order_status.name %> <%= !order_status.is_default.nil? && order_status.is_default ? " (Default)" : "" %></td>
+            <td><%= !order_status.send_email.nil? && order_status.send_email ? "Yes" : "No" %></td>
+            <td><%= link_to "Show", order_status_path(order_status.id)%> | <%= link_to "Edit", edit_order_status_path(order_status.id)%> | <%= link_to "Delete", order_status_path(order_status.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+            
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add Order Status", new_order_status_path %>

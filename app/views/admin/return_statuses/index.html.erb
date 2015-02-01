@@ -1,0 +1,17 @@
+<h1> List of Return Statuses </h1>
+
+<table border="1">
+    <tr>
+        <th>Return Status</th>
+        <th> Action </th>
+        
+    </tr>
+    <%@return_statuses.each do |return_status|%>
+        <tr>
+            <td><%= return_status.name %> <%= !return_status.is_default.nil? && return_status.is_default ? " (Default)" : "" %></td>
+            <td><%= link_to "Show", return_status_path(return_status.id)%> | <%= link_to "Edit", edit_return_status_path(return_status.id)%> | <%= link_to "Delete", return_status_path(return_status.id), method: :delete, data: {confirm: "Are you sure"}%></td>
+            
+        </tr>
+    <% end %>
+</table>
+<%= link_to "Add Return Status", new_return_status_path %>

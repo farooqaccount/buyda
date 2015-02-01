@@ -1,0 +1,7 @@
+<h3><%= @weight_class.title %></h3><br />
+
+<p> <strong>Weight Unit:</strong> <%=@weight_class.unit%></p>
+<p> <strong>value:</strong> <%= @weight_class.value%></p>
+    
+<p><%= link_to "All Weight Classes", weight_classes_path%> | <%= link_to "Edit Weight Class", edit_weight_class_path(@weight_class.id)%>
+    | <%= link_to "Delete Weight Class", weight_class_path(@weight_class.id), method: :delete, data: {confirm: "Are you sure?"} %></p>

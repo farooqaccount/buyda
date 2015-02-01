@@ -1,0 +1,175 @@
+<%= form_for @order do |f|%>
+<% if @order.errors.any?%>
+    <h4> Below error prohibited the order to be submitted </h4>
+    <ul>
+        <% @order.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12 well">
+            <ul class="nav nav-tabs">
+                    <li class="active"> <a href="#order_details" data-target="#order_details" data-toggle="tab">Order Details</a>
+
+                </li>
+                            <li><a href="#payment_details" data-target="#payment_details" data-toggle="tab">Billing Details</a>
+
+                </li>
+                <li><a href="#shipping_details" data-target="#shipping_details" data-toggle="tab">Shipping Details</a>
+
+                </li>
+                            <li><a href="#products" data-target="#products" data-toggle="tab">Products</a>
+
+                </li>
+                  <li><a href="#order_history" data-target="#order_history" data-toggle="tab">Order History</a>
+
+                </li>
+                            
+            </ul>
+            <div class="tab-content">
+                    <div class="tab-pane active fade in" id="order_details">Order Details
+                       <table id="orders" class="table table-bordered">
+                          <tbody>
+                              <tr>
+                                  <td> Order ID</td>
+                                  <td><%=@order.id%></td>
+                              </tr>
+                              <tr>
+                                  <td> Customer</td>
+                                  <td><%= @order.user.user_name%></td>
+                                 
+                              </tr>
+                              <tr>
+                                  <td> Email</td>
+                                  <td><%=@order.user.email%></td>
+                              </tr>
+                              <tr>
+                                  <td> Total</td>
+                                  <td><%=@order.discounted_total%></td>
+                              </tr>
+                              <tr>
+                                  <td> Order Status</td>
+                                  <td><%=@order.order_histories.last.order_status.name%></td>
+                              </tr>
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="tab-pane" id="payment_details">Billing Details
+                        <table id="orders" class="table table-bordered">
+                          <tbody>
+                              <tr>
+                                  <td> Name</td>
+                                  <td><%=@order.name%></td>
+                              </tr>
+                              <tr>
+                                  <td> Address</td>
+                                  <td><%=@order.address%></td>
+                              </tr>
+                              <tr>
+                                  <td> Payment Type</td>
+                                  <td><%=@order.payment_type%></td>
+                              </tr>
+                              
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="tab-pane" id="shipping_details">Shipping Details
+                        <table id="orders" class="table table-bordered">
+                          <tbody>
+                              <%= f.fields_for :order_shipping_detail do |order_shipping| %>
+                              <tr>
+                                  <td> Shipping Name</td>
+                                  <td><%= order_shipping.text_field :name, :class => "form-control"%></td>
+                              </tr>
+                              <tr>
+                                  <td> Shipping Address</td>
+                                  <td><%= order_shipping.text_area :address, :class => "form-control"%></td>
+                              </tr>
+                              <tr>
+                                  <td> Shipping Zip</td>
+                                  <td><%= order_shipping.text_area :address, :class => "form-control"%></td>
+                              </tr>
+                              <% end %> 
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="tab-pane" id="products">Products
+                        <table id="orders" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @order.order_products.each do |order_product| %>
+                                <tr>
+                                    <td><%= order_product.product.name %></td>
+                                    <td><%= order_product.quantity %></td>
+                                    <td><%= order_product.product.price %></td>
+                                    <td><%= order_product.discounted_price %></td>
+                                    <td><%= link_to "Delete", order_product_path(order_product.id,order_product.product_id), method: :delete, data: {confirm: "Are you sure"}%></td>
+                                </tr>
+                                
+                                <% end %>
+                                <tr>
+                                    <td colspan="3" style="align:right">sub-total</td>
+                                    <td><%= @order.discounted_total %></td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="order_history">Order History
+                
+                    <table id="orders" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Date Added</th>
+                                    <th>Status</th>
+                                    <th>Customer Notified</th>
+                                                                       
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @order.order_histories.each do |order_history| %>
+                                <tr>
+                                    <td><%= order_history.created_at %></td>
+                                    <td><%= order_history.order_status.name %></td>
+                                    <td><%= order_history.order_status.send_email ? "Yes": "No"%></td>
+                                    
+                                    
+                                </tr>
+                                
+                                <% end %>
+                               
+                            </tbody>
+                        </table>
+                        <div class="panel-heading">Add Order History</div>
+        <div class="panel-body">
+            <%= form_for @order_history do |order_history| %>
+                Order Status: <%= order_history.collection_select :order_status_id,OrderStatus.all,:id,:name,:prompt => "Select Order Status"%>
+                <br>
+                Notify: <%=order_history.check_box :notify%>
+                <br>
+                <%=order_history.hidden_field :order_id, :value => @order.id%>
+                <%= order_history.submit%>
+             <% end %>
+              
+        </div>
+                    </div>
+                    
+            </div>
+        </div>
+    </div>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+orders_path, :class => 'btn btn-default' %> <%= f.submit %>
+</div>
+<% end %>
+

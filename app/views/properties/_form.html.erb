@@ -1,0 +1,42 @@
+<%= form_for @property do |f|%>
+
+<% if @property.errors.any?%>
+     <h4> Below error prohibited the property to save </h4>
+    <ul>
+        <% @property.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label> Property Code:</label><br />
+<%= f.text_field :property_code%><br />
+
+<label> Land Lord:</label><br />
+<%= f.collection_select :land_lord_id, User.order(:user_name), :id, :user_name, {:include_blank => "Please select the land lord"} %><br />
+
+<label> Lessee:</label><br />
+<%= f.collection_select :user_id, User.order(:user_name), :id, :user_name, {:include_blank => "Please select the Lessee"} %><br />
+
+<label> Address:</label><br />
+<%= f.text_area :address%><br />
+
+<label> Rent Amount:</label><br />
+<%= f.text_field :rent_amount%><br />
+
+<label> Lease Start Date:</label><br />
+<%= f.date_select :lease_start_date%><br />
+
+<label> Lease End Date:</label><br />
+<%= f.date_select :lease_end_date%><br />
+
+<label> Remarks:</label><br />
+<%= f.text_area :remarks%><br />
+
+<!-- <label> Country:</label><br />
+<%= f.collection_select :country_id, Country.order(:name), :id, :name, include_blank: true %><br />
+
+<label> State:</label><br />
+<%= f.grouped_collection_select :zone_id, Country.order(:name), :zones, :name, :id, :name, include_blank: true %><br /> -->
+
+<%= f.submit%>
+<% end %>

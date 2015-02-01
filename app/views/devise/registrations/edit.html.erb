@@ -1,0 +1,173 @@
+<% content_for :title, "Modify my account" %>
+<div class="main">
+      <div class="container">
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+          <!-- BEGIN SIDEBAR -->
+          <div class="sidebar col-md-3 col-sm-3">
+            <%= render "sidebar"%>  
+          </div>
+          <!-- END SIDEBAR -->
+
+          <!-- BEGIN CONTENT -->
+          <div class="col-md-9 col-sm-9">
+            <h1>Modify my account</h1>
+              <% user = current_user %>
+              <%= form_for(user, as: user, url: registration_path(user), html: { method: :put }) do |f| %>
+              
+              <div class="content-form-page">
+               <div class="row">
+                   <div class="col-md-7 col-sm-7">
+                   <!-- Display error -->
+                  <% if @user.errors.any?%>
+                    <ul>
+                    <% @user.errors.full_messages.each do |msg|%>
+                        <li><%= msg %></li>
+                    <% end %>
+                    </ul>
+                  <% end %>
+                  </div>
+              <!-- End of Display error -->
+               </div>
+               <div class="row">
+                <div class="col-md-7 col-sm-7">
+                  <form class="form-horizontal" role="form">
+                    <fieldset>
+                      <legend>Your personal details</legend>
+                      <div class="form-group">
+                        <label for="firstname" class="col-lg-4 control-label">First Name </label>
+                        <div class="col-lg-8">
+                            <%= f.text_field :first_name, autofocus: true,id: "firstname",class: "form-control" %>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="lastname" class="col-lg-4 control-label">Last Name </label>
+                        <div class="col-lg-8">
+                            <%= f.text_field :last_name,id: "lastname",class: "form-control" %>
+                        </div>
+                      </div>
+                       <div class="form-group">
+                        <label for="username" class="col-lg-4 control-label">User Name </label>
+                        <div class="col-lg-8">
+                            <%= f.text_field :user_name, class: "form-control", id: "username" %>
+                          
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="email" class="col-lg-4 control-label">Email </label>
+                        <div class="col-lg-8">
+                            <%= f.email_field :email, class: "form-control", id: "email" %>
+                          
+                        </div>
+                      </div>
+                        
+                      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                        <div class="form-group">Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+                      <% end %>
+                        
+                      <div class="form-group">
+                        <label for="phone" class="col-lg-4 control-label">Mobile No </label>
+                        <div class="col-lg-8">
+                            <%= f.text_field :phone_number, class: "form-control", id: "phone" %>
+                          
+                        </div>
+                      </div>
+                        <% if current_user && current_user.roles.collect{|rol| rol.name}.include?("administrator")%>
+                         <div class="form-group">
+                        <label for="phone" class="col-lg-4 control-label">Role <span class="require"></span></label>
+                        <div class="col-lg-8">
+                            
+
+                            <%= hidden_field_tag "user[roles_ids][]", nil %>
+                            <% Role.all.each do |role| %>
+                            <%= check_box_tag "user[role_ids][]", role.id, current_user && current_user.role_ids.include?(role.id), id: dom_id(role) %>
+                            <%= label_tag dom_id(role), role.name %><br>
+<% end %>
+                        </div>
+                      </div>
+                        <% end %>
+                    </fieldset>
+                    <fieldset>
+                      <legend>Your password <i>(leave blank if you don't want to change it)</i></legend>
+                      <div class="form-group">
+                        <label for="password" class="col-lg-4 control-label">Password </label>
+                        <div class="col-lg-8">
+                          <%= f.password_field :password, autocomplete: "off", class: "form-control", id: "password" %><% if @validatable %><i>(<%= @minimum_password_length %> characters minimum)</i><% end %>
+                          
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="confirm-password" class="col-lg-4 control-label">Confirm password</label>
+                        <div class="col-lg-8">
+                          <%= f.password_field :password_confirmation, autocomplete: "off",class: "form-control", id: "confirm-password" %>
+                          
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="current-password" class="col-lg-4 control-label">Current password</label>
+                        <div class="col-lg-8">
+                          <%= f.password_field :current_password, autocomplete: "off",class: "form-control", id: "current-password" %><i>(we need your current password to confirm your changes)</i>
+                          
+                        </div>
+                      </div>
+                        
+                                              
+                    </fieldset>
+                    <fieldset>
+                      <legend>Newsletter</legend>
+                      <div class="checkbox form-group">
+                        <label>
+                          <div class="col-lg-4 col-sm-4">Singup for Newsletter</div>
+                          <div class="col-lg-8 col-sm-8">
+                              <%= f.check_box :subscribe_newsletter%>
+                          </div>
+                        </label>
+                      </div>
+                    </fieldset>
+                    <div class="row">
+                      <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+                          <%= f.submit "Modify my account", class: "btn btn-primary" %>
+                          <%= link_to "Back", :back %>
+                        
+                      </div>
+                    </div>
+                    
+                  </form>
+                </div>
+                <div class="col-md-4 col-sm-4 pull-right">
+                    <%= render "right_sidebar"%>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          
+          <div class="content-form-page">
+              <div class="row">
+                <div class="col-md-7 col-sm-7">
+                  <form class="form-horizontal" role="form">
+                    <fieldset>
+                        <legend>Cancel My Account</legend>
+                        <div class="form-group">
+                            <label for="unhappy" class="col-lg-4 control-label">Unhappy?</label>
+                            <div class="col-lg-8">
+                                <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete,class: "btn btn-danger" %>
+
+                            </div>
+                        </div>
+                    </fieldset> 
+                   </form>
+              </div>
+            </div>
+          </div>
+          </div>
+          <!-- END CONTENT -->
+           
+           
+          
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+      </div>
+    </div>
+
+

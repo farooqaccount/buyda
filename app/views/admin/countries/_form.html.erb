@@ -1,0 +1,31 @@
+<%= form_for @country do |f|%>
+
+<% if @country.errors.any?%>
+     <h4> Below error prohibited the country to save </h4>
+    <ul>
+        <% @country.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+<label> Country Name:</label><br />
+<%= f.text_field :name%><br />
+
+<label> ISO Code (2):</label><br />
+<%= f.text_field :iso_code_2%><br />
+
+<label> ISO Code (3):</label><br />
+<%= f.text_field :iso_code_3%><br />
+
+<label> Address Format:</label><br />
+<%= f.text_area :address_format%><br />
+
+<label> Postcode Required:<lable><br />
+<%= f.check_box :postcode_required %><br />
+
+<label>Status: </label>
+<%=f.select :status, options_for_select([["Enable", "Enable"], ["Disable", "Disable"]])%>
+<br />
+
+    <%= f.submit%>
+<% end %>

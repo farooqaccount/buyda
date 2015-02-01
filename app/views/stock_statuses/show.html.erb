@@ -1,0 +1,6 @@
+<h3><%= @stock_status.name %></h3><br />
+
+<p> <strong>Is Default?:</strong> <%= @stock_status.is_default ? "Yes" : "No"%></p>
+
+<p><%= link_to "All Stock Statuses", stock_statuses_path%> | <%= link_to "Edit stock status", edit_stock_status_path(@stock_status.id)%>
+    | <%= link_to "Delete stock status", stock_status_path(@stock_status.id), method: :delete, data: {confirm: "Are you sure?"} %></p>

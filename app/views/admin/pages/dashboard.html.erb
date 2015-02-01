@@ -1,0 +1,532 @@
+<%= hidden_field_tag :product_chart_options, params[:product_chart_options] %>
+<%= hidden_field_tag :order_stats, params[:order_stats] %>
+<%= hidden_field_tag :order_chart_options, params[:order_chart_options] %>
+                        
+<div class="row">
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="dashboard-stat blue-madison">
+						<div class="visual">
+							<i class="fa fa-comments"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 <%= @orders_count%>
+							</div>
+							<div class="desc">
+								 Total Order
+							</div>
+						</div>
+						<a class="more" href="#">
+						View more <i class="m-icon-swapright m-icon-white"></i>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="dashboard-stat red-intense">
+						<div class="visual">
+							<i class="fa fa-bar-chart-o"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 <%= @total_sales%>$
+							</div>
+							<div class="desc">
+								 Total Sales
+							</div>
+						</div>
+						<a class="more" href="#">
+						View more <i class="m-icon-swapright m-icon-white"></i>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="dashboard-stat green-haze">
+						<div class="visual">
+							<i class="fa fa-shopping-cart"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 <%= @total_customers%>
+							</div>
+							<div class="desc">
+								 Total Customers
+							</div>
+						</div>
+						<a class="more" href="#">
+						View more <i class="m-icon-swapright m-icon-white"></i>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="dashboard-stat purple-plum">
+						<div class="visual">
+							<i class="fa fa-globe"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 0
+							</div>
+							<div class="desc">
+								 People Online
+							</div>
+						</div>
+						<a class="more" href="#">
+						View more <i class="m-icon-swapright m-icon-white"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+<div class="row" >
+    
+    <div class="col-md-6 col-sm-6">
+       
+        <%=form_tag admin_pages_dashboard_path, :method => "get" do%>
+         <%= hidden_field_tag :product_chart_options, params[:product_chart_options] %>
+        <%= hidden_field_tag :order_stats, params[:order_stats] %>
+
+        <div class="portlet solid bordered grey-cararra">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-bar-chart-o"></i>Orders
+							</div>
+							<div class="tools">
+								<div class="btn-group" data-toggle="buttons">
+                   <% 
+                        activeMonthRadio = ""
+                        activeDayRadio = ""
+                        if params[:order_chart_options].present? && !params[:order_chart_options].nil?
+                            if params[:order_chart_options] == "monthWise"
+                                activeMonthRadio = "active" 
+
+                            else
+                                activeDayRadio = "active"
+                            end
+                        else
+                            activeMonthRadio = "active"
+
+                    end%>
+									<label class="btn grey-steel btn-sm <%=activeMonthRadio%>">
+                                        
+                                        <%=radio_button_tag 'order_chart_options', "monthWise", false,  id: "option1" ,class: "toggle",:onclick => "this.form.submit();"%>
+                                        Last 6 months</label>
+                                    
+									<label class="btn grey-steel btn-sm <%=activeDayRadio%>">
+                                        <%=radio_button_tag 'order_chart_options', "dayWise", false, id: "option2" ,class: "toggle",:onclick => "this.form.submit();"%>Last 2 weeks</label>
+								</div>
+							</div>
+						</div>
+                        <div id="order_chart">
+                            <div class="portlet-body">
+                                <div id="site_statistics_loading">
+                                    <img src="/admin/layout/img/loading.gif" alt="loading"/>
+                                </div>
+                                <div id="chart">
+                                    <%= render_chart @orders_chart, 'chart' %>						
+                                </div>
+                            </div>
+                        </div>
+						</div>
+        <% end %>
+					</div>
+                    <div class="col-md-6 col-sm-6">
+                        <%=form_tag admin_pages_dashboard_path, :method => "get" do%>
+                           
+<%= hidden_field_tag :order_stats, params[:order_stats] %>
+<%= hidden_field_tag :order_chart_options, params[:order_chart_options] %>                     
+                        <div class="portlet solid bordered grey-cararra">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-bar-chart-o"></i>Products
+							</div>
+							<div class="tools">
+                                <% 
+                        activeTop5 = ""
+                        activeTop10 = ""
+                        if params[:product_chart_options].present? && !params[:product_chart_options].nil?
+                            if params[:product_chart_options] == "top5"
+                                activeTop5 = "active" 
+
+                            else
+                                activeTop10 = "active"
+                            end
+                        else
+                            activeTop5 = "active" 
+
+                    end%>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn grey-steel btn-sm <%=activeTop5%>">
+                                        <%=radio_button_tag 'product_chart_options', "top5", false,  id: "option1" ,class: "toggle",:onclick => "this.form.submit();"%>
+                                        Top 5</label>
+									<label class="btn grey-steel btn-sm <%=activeTop10%>">
+									<%=radio_button_tag 'product_chart_options', "top10", false,  id: "option1" ,class: "toggle",:onclick => "this.form.submit();"%>
+                                        Top 10</label>
+								</div>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div id="site_statistics_loading">
+								<img src="/admin/layout/img/loading.gif" alt="loading"/>
+							</div>
+							<div id="product_chart">
+		                            <%= render_chart @top_products_chart, 'product_chart' %>						
+								</div>
+							</div>
+						</div>
+                        <% end %>
+					</div>
+    
+</div>
+<div class="row">
+				
+                <div class="col-md-6">
+					<!-- Begin: life time stats -->
+					<div class="portlet box blue-steel">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-thumb-tack"></i>Overview
+							</div>
+							<div class="tools">
+								<a href="javascript:;" class="collapse">
+								</a>
+								<a href="#portlet-config" data-toggle="modal" class="config">
+								</a>
+								<a href="javascript:;" class="reload">
+								</a>
+								<a href="javascript:;" class="remove">
+								</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a href="#overview_1" data-toggle="tab">
+									Top Selling </a>
+								</li>
+								<li>
+									<a href="#overview_2" data-toggle="tab">
+									Most Viewed </a>
+								</li>
+								<li>
+									<a href="#overview_3" data-toggle="tab">
+									New Customers </a>
+								</li>
+							
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="overview_1">
+									<div class="table-responsive">
+										<table class="table table-striped table-hover table-bordered">
+										<thead>
+										<tr>
+											<th>
+												 Product Name
+											</th>
+											<th>
+												 Price
+											</th>
+											<th>
+												 Sold
+											</th>
+											<th>
+											</th>
+										</tr>
+										</thead>
+										<tbody>
+                                         <% if !@top_selling_products.nil?
+                                                @top_selling_products.each_with_index do |product,index|%>
+                                            <tr>
+											<td>
+												<a href="#">
+                                                    <%=@top_selling_products[index][1]%> </a>
+											</td>
+											<td>
+                                                <%= @top_selling_products[index][2] %>
+											</td>
+											<td>
+												 <%= @top_selling_products[index][3] %>
+											</td>
+											<td>
+												<a href="#" class="btn default btn-xs green-stripe">
+												View </a>
+											</td>
+										</tr>
+                                                <%end%>
+                                            <% end %>
+										
+										</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="tab-pane" id="overview_2">
+									<div class="table-responsive">
+										<table class="table table-striped table-hover table-bordered">
+										<thead>
+										<tr>
+											<th>
+												 Product Name
+											</th>
+											<th>
+												 Price
+											</th>
+											<th>
+												 Views
+											</th>
+											<th>
+											</th>
+										</tr>
+										</thead>
+										<tbody>
+										<% if !@top_viewed_products.nil?
+                                                @top_viewed_products.each_with_index do |product,index|%>
+                                            <tr>
+											<td>
+												<a href="#">
+                                                    <%=@top_viewed_products[index][1]%> </a>
+											</td>
+											<td>
+                                                <%= @top_viewed_products[index][2] %>
+											</td>
+											<td>
+												 <%= @top_viewed_products[index][3] %>
+											</td>
+											<td>
+												<a href="#" class="btn default btn-xs green-stripe">
+												View </a>
+											</td>
+										</tr>
+                                                <%end%>
+                                            <% end %>
+										</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="tab-pane" id="overview_3">
+									<div class="table-responsive">
+										<table class="table table-striped table-hover table-bordered">
+										<thead>
+										<tr>
+											<th>
+												 Customer Name
+											</th>
+											<th>
+												 Total Orders
+											</th>
+											<th>
+												 Total Amount
+											</th>
+											<th>
+											</th>
+										</tr>
+										</thead>
+										<tbody>
+                                            
+                                            <% if !@new_customers_orders.nil?
+@new_customers_orders.each_with_index do |cust,index|%>
+                                            
+										<tr>
+											<td>
+												<a href="#">
+                                                    <%=@new_customers_orders[index][0]%> </a>
+											</td>
+											<td>
+												 <%=@new_customers_orders[index][1]%>
+											</td>
+											<td>
+												 $<%=@new_customers_orders[index][2]%>
+											</td>
+											<td>
+												<a href="#" class="btn default btn-xs green-stripe">
+												View </a>
+											</td>
+										</tr>
+                                            <% end %>
+                                            <% end %>
+										</tbody>
+										</table>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<!-- End: life time stats -->
+				</div>
+				<div class="col-md-6">
+					<!-- Begin: life time stats -->
+					<div class="portlet box blue-steel">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-thumb-tack"></i>Orders
+							</div>
+							<div class="tools">
+								<a href="javascript:;" class="collapse">
+								</a>
+								<a href="#portlet-config" data-toggle="modal" class="config">
+								</a>
+								<a href="javascript:;" class="reload">
+								</a>
+								<a href="javascript:;" class="remove">
+								</a>
+							</div>
+						</div>
+                                  
+						<div class="portlet-body">
+                            
+							<ul class="nav nav-tabs">
+								
+								<li class="dropdown dropdown-user">
+									<a  class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#">
+									Orders <i class="fa fa-angle-down"></i>
+									</a>
+									<ul class="dropdown-menu" role="menu">
+										<li>
+											<%= link_to "Latest 10 Orders", admin_pages_dashboard_path(:order_stats => "10Orders",:product_chart_options => params[:product_chart_options],:order_chart_options => params[:order_chart_options]) %>
+										</li>
+										<li>
+											<%= link_to "Pending Orders", admin_pages_dashboard_path(:order_stats => "Pending",:product_chart_options => params[:product_chart_options],:order_chart_options => params[:order_chart_options]) %>
+										</li>
+										<li>
+											<%= link_to "Completed Orders", admin_pages_dashboard_path(:order_stats => "Shipped",:product_chart_options => params[:product_chart_options],:order_chart_options => params[:order_chart_options]) %>
+										</li>
+										<li>
+											<%= link_to "Rejected Orders", admin_pages_dashboard_path(:order_stats => "Canceled",:product_chart_options => params[:product_chart_options],:order_chart_options => params[:order_chart_options]) %>
+										</li>
+									</ul>
+								</li>
+							</ul>
+                           
+                            
+							<div class="tab-content">
+								
+								
+								<div class="tab-pane active" id="overview_4">
+									<div class="table-responsive">
+										<table class="table table-striped table-hover table-bordered">
+										<thead>
+										<tr>
+											<th>
+												 Customer Name
+											</th>
+											<th>
+												 Date
+											</th>
+											<th>
+												 Amount
+											</th>
+											<th>
+												 Status
+											</th>
+											<th>
+											</th>
+										</tr>
+										</thead>
+										<tbody>
+                                            <% if !@customer_order_details.empty? && @customer_order_details.size > 0
+                                                @customer_order_details.each_with_index do |product,index|%>
+										<tr>
+											<td>
+												<a href="#">
+												<%= @customer_order_details[index][1]%>
+                                                </a>
+											</td>
+											<td>
+												 <%= @customer_order_details[index][2].strftime("%d %b, %Y")%>
+											</td>
+											<td>
+												 $<%= @customer_order_details[index][3]%>
+											</td>
+											<td>
+												<span class="label label-sm label-warning">
+												<%= @customer_order_details[index][4]%> </span>
+											</td>
+											<td>
+												<a href="#" class="btn default btn-xs green-stripe">
+												View </a>
+											</td>
+										</tr>
+                                            <% end %>
+                                            <% else %>
+                                            <tr>
+                                                <td colspan="5" align="center"> No records found </td>
+                                            </tr>
+                                            <% end %>
+										</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+                        
+					</div>
+					<!-- End: life time stats -->
+				</div>
+			</div>
+<div class="row">
+    <div class="col-md-6">
+					<!-- Begin: life time stats -->
+					<div class="portlet box red-sunglo tabbable">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-bar-chart-o"></i>Revenue
+							</div>
+							<div class="tools">
+								<a href="#portlet-config" data-toggle="modal" class="config">
+								</a>
+								<a href="javascript:;" class="reload">
+								</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="portlet-tabs">
+								<ul class="nav nav-tabs" style="margin-right: 50px">
+									<li>
+										<a href="#portlet_tab2" data-toggle="tab" id="statistics_amounts_tab">
+										Amounts </a>
+									</li>
+									<li class="active">
+										<a href="#portlet_tab1" data-toggle="tab">
+										Orders </a>
+									</li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane active" id="portlet_tab1">
+										<div id="statistics_1" class="chart">
+										</div>
+									</div>
+									<div class="tab-pane" id="portlet_tab2">
+										<div id="statistics_2" class="chart">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="well no-margin no-border">
+								<div class="row">
+									<div class="col-md-3 col-sm-3 col-xs-6 text-stat">
+										<span class="label label-success">
+										Revenue: </span>
+										<h3>$1,234,112.20</h3>
+									</div>
+									<div class="col-md-3 col-sm-3 col-xs-6 text-stat">
+										<span class="label label-info">
+										Tax: </span>
+										<h3>$134,90.10</h3>
+									</div>
+									<div class="col-md-3 col-sm-3 col-xs-6 text-stat">
+										<span class="label label-danger">
+										Shipment: </span>
+										<h3>$1,134,90.10</h3>
+									</div>
+									<div class="col-md-3 col-sm-3 col-xs-6 text-stat">
+										<span class="label label-warning">
+										Orders: </span>
+										<h3>235090</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End: life time stats -->
+				</div>
+</div>
+
+

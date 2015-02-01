@@ -1,0 +1,37 @@
+<%- model_class = ManufacturerProduct -%>
+<div class="page-header">
+        <h1>Latest <%= !@manufacturer_products.nil? && @manufacturer_products.size > 0 ? @manufacturer_products.count : ""%> <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped" id="products">
+  <thead>
+    <tr>
+      
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:description) %></th>
+      <th><%= model_class.human_attribute_name(:price) %></th>
+      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:manufacturer_id) %></th>
+      <th><%= model_class.human_attribute_name(:category_id) %></th>
+     
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @manufacturer_products.each do |manufacturer_product| %>
+      <tr>
+          <td><%= link_to manufacturer_product.name, manufacturer_path(manufacturer_product.manufacturer_id) %></td>
+        <td><%= manufacturer_product.description %></td>
+        <td><%= manufacturer_product.price %></td>
+        <td><%= manufacturer_product.title %></td>
+        <td><%= manufacturer_product.manufacturer.name %></td>
+        <td><%= !manufacturer_product.category.nil? ? manufacturer_product.category.name : "-" %></td>
+       
+        <td>
+        
+            <%= button_to "Add to cart", admin_cart_products_path(manufacturer_product_id: manufacturer_product.id),:class => 'btn btn-xs btn-sucess' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
